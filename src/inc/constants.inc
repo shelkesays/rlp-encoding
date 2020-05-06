@@ -1,0 +1,9 @@
+#ifndef RLP_CONSTANTS_H
+#define RLP_CONSTANTE_H
+
+#define EMPTY_STRING 0x00
+#define SINGLE_BYTE_STRING 0x38 
+#define SHORT_STRING 0x80
+#define LONG_STRING 0xb7
+
+#endif
