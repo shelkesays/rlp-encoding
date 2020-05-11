@@ -9,27 +9,28 @@
 
 
 std::vector<char> RLPEncoder::EncodeLength(const int len, const int offset) {
-    if (len < SINGLE_BYTE_STRING) {
-        std::cout << len + offset << std::endl;
+    if (len <= SINGLE_BYTE_STRING) {
         return IntegerToBytes(len + offset);
     } else {
         const std::string hex_len_ = IntegerToHex(len);
         const int l_length_ = hex_len_.size() / 2;
-        const std::string first_byte_ = IntegerToHex(offset + 55 + l_length_);
-        const uint64_t number_ = HexToInteger(first_byte_);
+        const uint64_t number_ = offset + SINGLE_BYTE_STRING + l_length_;
         return IntegerToBytes(number_);
     }
 }
 
 std::vector<char> RLPEncoder::Encode(const std::vector<char> bytes_value, const int offset) {
-    if(bytes_value.size() == 1 && offset == SHORT_STRING && bytes_value[0] < SHORT_STRING) {
-        return bytes_value;
+    std::vector<char> encode_length_;
+    if (bytes_value.empty()) {
+        encode_length_.push_back(NON_VALUE_STRING);
+    } else if(bytes_value.size() == 1 && bytes_value[0] <= SHORT_STRING) {
+        encode_length_ = bytes_value;
     } else {
-        std::vector<char> encode_length = EncodeLength(bytes_value.size(), SHORT_STRING);
-        encode_length.insert(encode_length.end(), bytes_value.begin(), bytes_value.end());
-
-        return encode_length;
+        encode_length_ = EncodeLength(bytes_value.size(), SHORT_STRING);
+        encode_length_.insert(encode_length_.end(), bytes_value.begin(), bytes_value.end());
     }
+
+    return encode_length_;
 }
 
 std::vector<char> RLPEncoder::EncodeString(RLPString input) {

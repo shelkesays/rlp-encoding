@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-#include <stdint.h>
+// #include <stdint.h>
 
 /**
  * Generates the empty byte
@@ -11,6 +11,15 @@
  * @return std::vector<char> Empty byte 
  */
 std::vector<char> EmptyByte();
+
+/**
+ * Check if given string is numeric or not
+ * 
+ * @param input string to be checked
+ * @return true if the string is number
+ * @return false if string is not a number
+ */
+bool isNumeric(const std::string& input);
 
 /**
  * Is the string having hex prefix, i.e., 0x
@@ -36,7 +45,7 @@ std::string StripHexPrefix(const std::string& input);
  * @param base base at which to parse the number, i.e. 2, 3, octal, hex, etc.
  * @return std::uint64_t parsed integer number
  */
-std::uint64_t SafeParseInt(const std::string& input, unsigned int base);
+std::uint64_t SafeParseInt(const std::string& input, unsigned int base=10);
 
 /**
  * Convert Integer to Bytes
@@ -82,7 +91,7 @@ bool IsHexString(const std::string& input);
 /**
  * Add even padding to the string.
  * This will check if the string is having length even or not. 
- * If it is not even lenght, it will add 0 paddinf to make it even lenght.
+ * If it is not even length, it will add 0 paddinf to make it even lenght.
  * 
  * @param input String to be padded with
  * @return std::string String with even padded.
@@ -122,7 +131,20 @@ std::string StringToHex(const std::string& s, bool upper=false);
  */
 std::string HexToString(const std::string& input);
 
-template<class T>
-std::vector<char> ToBytes(const T& input);
- 
+std::vector<char> ToBytes(const std::string& input);
+
+template<typename T>
+int IsNonValue(T input);
+
+template<typename T>
+int GetLength(const T& input);
+
+// template<typename T>
+// std::vector<char> ToBytes(const T& input);
+
+template<typename T>
+std::vector<T> slice(const std::vector<T>& v, int start, int end);
+
+#include "template_utils.hpp"
+
 #endif
