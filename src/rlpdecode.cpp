@@ -4,8 +4,8 @@
 #include "inc/rlpstring.hpp"
 
 
-std::string RLPDecoder::Decode(const std::vector<char> bytes_input) {
-    std::vector<char> decoded_;
+std::string RLPDecoder::Decode(const std::vector<unsigned char> bytes_input) {
+    std::vector<unsigned char> decoded_;
     const auto first_byte_ = bytes_input[0];
     std::cout << "First Byte: " << first_byte_ << std::endl;
     int length_ {0};
@@ -23,8 +23,8 @@ std::string RLPDecoder::Decode(const std::vector<char> bytes_input) {
         decoded_ = slice(bytes_input, 1, length_);
     } else if(first_byte_ <= 0xbf) {
         auto l_length_ = first_byte_ - 0xb6;
-        const std::vector<char> part_byte_ = slice(bytes_input, 1, l_length_);
-        length_ = SafeParseInt(part_byte_.data(), 16);
+        const std::vector<unsigned char> part_byte_ = slice(bytes_input, 1, l_length_);
+        // length_ = SafeParseInt(part_byte_.data(), 16);
 
         decoded_ = slice(bytes_input, l_length_, length_ + l_length_);
     } else if(first_byte_ <= 0xf7) {
@@ -38,16 +38,16 @@ std::string RLPDecoder::Decode(const std::vector<char> bytes_input) {
         // a list over 55 bytes long
     }
 
-    return decoded_.data();
+    // return decoded_.data();
 }
 
 
 std::string RLPDecoder::DecodeString(const std::string& input) {
     if(input.empty()) {
-        return EmptyByte().data();
+        return BytesToString(EmptyByte());
     }
 
-    const std::vector<char> byte_input_ = ToBytes(input);
+    const std::vector<unsigned char> byte_input_ = ToBytes(input);
     std::cout << "Byte Input: " << byte_input_.data() << std::endl;
     const std::string decoded_ = Decode(byte_input_);
 

@@ -6,14 +6,14 @@
 
 class RLPString {
     private:
-        std::vector<char> value;
-        RLPString(const std::vector<char> value);
+        std::vector<unsigned char> value;
+        RLPString(const std::vector<unsigned char> value);
 
     public:
-        std::vector<char> GetBytes();
+        std::vector<unsigned char> GetBytes();
         std::string AsHexString();
-        static RLPString Create(const std::vector<char> input);
-        static RLPString Create(const char input);
+        static RLPString Create(const std::vector<unsigned char> input);
+        static RLPString Create(const unsigned char input);
         static RLPString Create(const uint64_t input);
         static RLPString Create(const long input);
         static RLPString Create(const std::string input);

@@ -7,7 +7,7 @@
 class RLPDecoder
 {
 private:
-    static std::string Decode(const std::vector<char> bytes_input);
+    static std::string Decode(const std::vector<unsigned char> bytes_input);
 public:
     static std::string DecodeString(const std::string& input);
 };

@@ -9,7 +9,7 @@ int IsNonValue(T input) {
     bool status = false;
     if(input == NULL) {
         status = true;
-    } else if(typeid(input) == typeid(std::vector<char>)) {
+    } else if(typeid(input) == typeid(std::vector<unsigned char>)) {
         status = input.empty();
     } else if(typeid(input) == typeid(std::string)) {
         status = input.empty();

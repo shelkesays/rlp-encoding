@@ -9,7 +9,7 @@
  * 
  * @return std::vector<char> Empty byte 
  */
-std::vector<char> EmptyByte();
+std::vector<unsigned char> EmptyByte();
 
 /**
  * Check if given string is numeric or not
@@ -52,7 +52,7 @@ std::uint64_t SafeParseInt(const std::string& input, unsigned int base=10);
  * @param input Large integer to be converted to bytes
  * @return std::vector<char> bytes representation of the integer
  */
-std::vector<char> IntegerToBytes(const uint64_t input);
+std::vector<unsigned char> IntegerToBytes(const uint64_t input);
 
 /**
  * Convert bytes to Integer
@@ -60,7 +60,7 @@ std::vector<char> IntegerToBytes(const uint64_t input);
  * @param input bytes representation of the number
  * @return uint64_t integer number
  */
-uint64_t BytesToInteger(const std::vector<char>& input);
+uint64_t BytesToInteger(const std::vector<unsigned char>& input);
 
 /**
  * Convert string to bytes 
@@ -68,7 +68,15 @@ uint64_t BytesToInteger(const std::vector<char>& input);
  * @param input String to be converted to bytes
  * @return std::vector<char> bytes representation of the string
  */
-std::vector<char> StringToBytes(const std::string& input);
+std::vector<unsigned char> StringToBytes(const std::string& input);
+
+/**
+ * Convert bytes to Hex string
+ * 
+ * @param input Bytes to be converted in hex string
+ * @return std::string Hex representation of string
+ */
+std::string BytesToString(std::vector<unsigned char> input);
 
 /**
  * Insert Hex prefix to the hexadecimal string
@@ -130,7 +138,7 @@ std::string StringToHex(const std::string& s, bool upper=false);
  */
 std::string HexToString(const std::string& input);
 
-std::vector<char> ToBytes(const std::string& input);
+std::vector<unsigned char> ToBytes(const std::string& input);
 
 template<typename T>
 int IsNonValue(T input);

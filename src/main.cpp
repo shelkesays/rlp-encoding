@@ -9,6 +9,11 @@
 #include "inc/rlpdecode.hpp"
 
 int main() {
+    uint64_t number_ = 0x61;
+    std::cout << std::hex << number_ << std::endl;
+    std::cout << IntegerToHex(number_) << std::endl;
+    std::cout << HexToString(IntegerToHex(number_)) << std::endl;
+    std::cout << StringToHex("a") << std::endl;
     std::string original_str {"Hello World!"}; // This is another test tp check the strenght the programs."};
     // long original_str = 234L;
     // std::vector<char> bytes_str = ConvertToBytes(original_str);
@@ -39,10 +44,10 @@ int main() {
     // std::vector<char> encoded_str = RLPEncoder::EncodeString(original_str);
     // std::cout << encoded_str.data() << std::endl;
 
-    std::vector<char> encoded_str_ = RLPEncoder::EncodeString(test_);
+    std::vector<unsigned char> encoded_str_ = RLPEncoder::EncodeString(test_);
     std::cout << encoded_str_.data() << std::endl;
 
-    std::string new_str_ = RLPDecoder::DecodeString(encoded_str_.data());
+    std::string new_str_ = RLPDecoder::DecodeString(BytesToString(encoded_str_));
     std::cout << new_str_ << std::endl;
     // int t1 = 54;
     // wchar_t t2 = std::stoi("0x7f", 0, 16);

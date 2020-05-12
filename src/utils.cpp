@@ -6,8 +6,17 @@
 
 #include "inc/constants.inc"
 
-std::vector<char> EmptyByte() {
-    std::vector<char> bytes_ = StringToBytes(std::to_string(EMPTY_STRING));
+std::string BytesToString(std::vector<unsigned char> input) {
+    std::string byte_str_ {""};
+    for(std::string::size_type i = 0; i < input.size(); i++ ) {
+        auto byte_ = input[i];
+        byte_str_ += byte_;
+    }
+    return byte_str_;
+}
+
+std::vector<unsigned char> EmptyByte() {
+    std::vector<unsigned char> bytes_ = StringToBytes(std::to_string(EMPTY_STRING));
     return bytes_;
 }
 
@@ -24,13 +33,24 @@ std::uint64_t SafeParseInt(const std::string& input, unsigned int base) {
     return std::stoul(input, 0, base);
 }
 
-std::vector<char> StringToBytes(const std::string& input) {
-    std::vector<char> bytes_(input.begin(), input.end());
+std::vector<unsigned char> StringToBytes(const std::string& input) {
+    std::vector<unsigned char> bytes_;
+    std::string hex_str_ {""};
+
+    std::string::size_type start = IsHexPrefixed(input) ? 2 : 0;
+    for(std::string::size_type i = start; i < input.length(); i = i+2) {
+        hex_str_ = input.substr(i, 2);
+        // stream_ += std::stoul(hex_str_, nullptr, 16);
+        // const unsigned char hex_char_ = (unsigned char) hex_str_.c_str();
+        unsigned char hex_char_ = (unsigned char) std::stoi(hex_str_, 0, 16);
+        bytes_.push_back(hex_char_);
+    }
+
     return bytes_;
 }
 
-std::vector<char> IntegerToBytes(const uint64_t input) {
-    std::vector<char> bytes_;
+std::vector<unsigned char> IntegerToBytes(const uint64_t input) {
+    std::vector<unsigned char> bytes_;
 
     std::ostringstream output_;
     // Only positive integers are allowed
@@ -129,8 +149,8 @@ std::string HexToString(const std::string& input) {
     return stream_;
 }
 
-std::vector<char> ToBytes(const std::string& input) {
-    std::vector<char> bytes_;
+std::vector<unsigned char> ToBytes(const std::string& input) {
+    std::vector<unsigned char> bytes_;
     if(input.empty()) {
         // Empty string
         bytes_ = EmptyByte();

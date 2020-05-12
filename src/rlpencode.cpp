@@ -5,7 +5,7 @@
 #include "inc/rlpstring.hpp"
 
 
-std::vector<char> RLPEncoder::EncodeLength(const int len, const int offset) {
+std::vector<unsigned char> RLPEncoder::EncodeLength(const int len, const int offset) {
     if (len <= SINGLE_BYTE_STRING) {
         return IntegerToBytes(len + offset);
     } else {
@@ -16,8 +16,8 @@ std::vector<char> RLPEncoder::EncodeLength(const int len, const int offset) {
     }
 }
 
-std::vector<char> RLPEncoder::Encode(const std::vector<char> bytes_value, const int offset) {
-    std::vector<char> encode_length_;
+std::vector<unsigned char> RLPEncoder::Encode(const std::vector<unsigned char> bytes_value, const int offset) {
+    std::vector<unsigned char> encode_length_;
     if (bytes_value.empty()) {
         encode_length_.push_back(NON_VALUE_STRING);
     } else if(bytes_value.size() == 1 && bytes_value[0] <= SHORT_STRING) {
@@ -30,11 +30,11 @@ std::vector<char> RLPEncoder::Encode(const std::vector<char> bytes_value, const 
     return encode_length_;
 }
 
-std::vector<char> RLPEncoder::EncodeString(RLPString input) {
+std::vector<unsigned char> RLPEncoder::EncodeString(RLPString input) {
     return Encode(input.GetBytes(), SHORT_STRING);
 }
 
-std::vector<char> RLPEncoder::EncodeString(const std::string input) {
+std::vector<unsigned char> RLPEncoder::EncodeString(const std::string input) {
     RLPString rlp_str_ = RLPString::Create(input);
     return EncodeString(rlp_str_);
 }
