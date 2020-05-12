@@ -4,10 +4,9 @@
 #include "inc/rlpstring.hpp"
 
 
-std::string RLPDecoder::Decode(const std::vector<unsigned char> bytes_input) {
-    std::vector<unsigned char> decoded_;
+std::vector<uint64_t> RLPDecoder::Decode(const std::vector<uint64_t> bytes_input) {
+    std::vector<uint64_t> decoded_;
     const auto first_byte_ = bytes_input[0];
-    std::cout << "First Byte: " << first_byte_ << std::endl;
     int length_ {0};
 
     if(first_byte_ <= 0x7f) {
@@ -19,12 +18,11 @@ std::string RLPDecoder::Decode(const std::vector<unsigned char> bytes_input) {
         // string is 0-55 bytes long. A single byte with value 0x80 plus the length of the string followed by the string
         // The range of the first byte is [0x80, 0xb7]
         length_ = first_byte_ - 0x7f;
-
         decoded_ = slice(bytes_input, 1, length_);
     } else if(first_byte_ <= 0xbf) {
         auto l_length_ = first_byte_ - 0xb6;
-        const std::vector<unsigned char> part_byte_ = slice(bytes_input, 1, l_length_);
-        // length_ = SafeParseInt(part_byte_.data(), 16);
+        const std::vector<uint64_t> part_byte_ = slice(bytes_input, 1, l_length_);
+        length_ = SafeParseInt(BytesToString(part_byte_), 16);
 
         decoded_ = slice(bytes_input, l_length_, length_ + l_length_);
     } else if(first_byte_ <= 0xf7) {
@@ -38,7 +36,7 @@ std::string RLPDecoder::Decode(const std::vector<unsigned char> bytes_input) {
         // a list over 55 bytes long
     }
 
-    // return decoded_.data();
+    return decoded_;
 }
 
 
@@ -47,9 +45,8 @@ std::string RLPDecoder::DecodeString(const std::string& input) {
         return BytesToString(EmptyByte());
     }
 
-    const std::vector<unsigned char> byte_input_ = ToBytes(input);
-    std::cout << "Byte Input: " << byte_input_.data() << std::endl;
-    const std::string decoded_ = Decode(byte_input_);
+    const std::vector<uint64_t> byte_input_ = ToBytes(input);
+    const std::vector<uint64_t> decoded_ = Decode(byte_input_);
 
-    return decoded_.data();
+    return BytesToString(decoded_);
 }

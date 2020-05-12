@@ -9,7 +9,7 @@
  * 
  * @return std::vector<char> Empty byte 
  */
-std::vector<unsigned char> EmptyByte();
+std::vector<uint64_t> EmptyByte();
 
 /**
  * Check if given string is numeric or not
@@ -18,7 +18,7 @@ std::vector<unsigned char> EmptyByte();
  * @return true if the string is number
  * @return false if string is not a number
  */
-bool isNumeric(const std::string& input);
+bool IsNumeric(const std::string& input);
 
 /**
  * Is the string having hex prefix, i.e., 0x
@@ -52,7 +52,7 @@ std::uint64_t SafeParseInt(const std::string& input, unsigned int base=10);
  * @param input Large integer to be converted to bytes
  * @return std::vector<char> bytes representation of the integer
  */
-std::vector<unsigned char> IntegerToBytes(const uint64_t input);
+std::vector<uint64_t> IntegerToBytes(const uint64_t input);
 
 /**
  * Convert bytes to Integer
@@ -60,7 +60,7 @@ std::vector<unsigned char> IntegerToBytes(const uint64_t input);
  * @param input bytes representation of the number
  * @return uint64_t integer number
  */
-uint64_t BytesToInteger(const std::vector<unsigned char>& input);
+uint64_t BytesToInteger(const std::vector<uint64_t>& input);
 
 /**
  * Convert string to bytes 
@@ -68,7 +68,7 @@ uint64_t BytesToInteger(const std::vector<unsigned char>& input);
  * @param input String to be converted to bytes
  * @return std::vector<char> bytes representation of the string
  */
-std::vector<unsigned char> StringToBytes(const std::string& input);
+std::vector<uint64_t> StringToBytes(const std::string& input);
 
 /**
  * Convert bytes to Hex string
@@ -76,7 +76,7 @@ std::vector<unsigned char> StringToBytes(const std::string& input);
  * @param input Bytes to be converted in hex string
  * @return std::string Hex representation of string
  */
-std::string BytesToString(std::vector<unsigned char> input);
+std::string BytesToString(std::vector<uint64_t> input);
 
 /**
  * Insert Hex prefix to the hexadecimal string
@@ -138,17 +138,44 @@ std::string StringToHex(const std::string& s, bool upper=false);
  */
 std::string HexToString(const std::string& input);
 
-std::vector<unsigned char> ToBytes(const std::string& input);
+/**
+ * Convert String to bytes
+ * 
+ * @param input String to be converted to bytes
+ * @return std::vector<uint64_t> Bytes representation
+ */
+std::vector<uint64_t> ToBytes(const std::string& input);
 
+/**
+ * @brief Check if input is non value or not, i.e. input is 0 / null / nullptr // ''
+ * 
+ * @tparam T Type of the input
+ * @param input Input to be checked 
+ * @return true if it is non value
+ * @return false If it is not non value
+ */
 template<typename T>
-int IsNonValue(T input);
+bool IsNonValue(T input);
 
+/**
+ * @brief Get the Length object
+ * 
+ * @tparam T Input type
+ * @param input Input value
+ * @return int length
+ */
 template<typename T>
 int GetLength(const T& input);
 
-// template<typename T>
-// std::vector<char> ToBytes(const T& input);
-
+/**
+ * @brief Slice the vector from start to end
+ * 
+ * @tparam T Type of vector
+ * @param v Vector be sliced
+ * @param start Start point
+ * @param end End point
+ * @return std::vector<T> Sliced vector
+ */
 template<typename T>
 std::vector<T> slice(const std::vector<T>& v, int start, int end);
 

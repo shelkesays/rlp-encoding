@@ -1,53 +1,34 @@
-// #include <iostream>
-// #include <vector>
-// #include <cctype>
-// #include <stdint.h>
-
 #include "inc/utils.hpp"
 #include "inc/rlpstring.hpp"
 #include "inc/rlpencode.hpp"
 #include "inc/rlpdecode.hpp"
 
 int main() {
-    uint64_t number_ = 0x61;
-    std::cout << std::hex << number_ << std::endl;
-    std::cout << IntegerToHex(number_) << std::endl;
-    std::cout << HexToString(IntegerToHex(number_)) << std::endl;
-    std::cout << StringToHex("a") << std::endl;
-    std::string original_str {"Hello World!"}; // This is another test tp check the strenght the programs."};
-    // long original_str = 234L;
-    // std::vector<char> bytes_str = ConvertToBytes(original_str);
-    // std::cout << bytes_str.data() << std::endl;
-
-    // bytes_str.insert(bytes_str.begin(), bytes_str.size() + 0x80);
-    // std::cout << bytes_str.data() << std::endl;
-
-    // std::string hex = StringToHex(bytes_str.data());
-    // std::cout << hex.length() << std::endl;
-    // std::string str = HexToString(hex);
-
-    // std::cout << "Original String: " << original_str << std::endl;
-    // std::cout << "Hex String: " << hex << std::endl;
-    // std::cout << "Converted String: " << str << std::endl;
-
-    // std::vector<char> bytes_str { 1, 2, 3, 4, 5 };
-    // uint64_t number = 10928774;
-    // std::cout << IntegerToBytes(number) << std::endl;
-    // std::cout << abs(bytes_str[0]) << std::endl;
-    // std::cout << ConvertToInteger(bytes_str) << std::endl;
+    // uint64_t number_ = 0x48;
+    // std::cout << "HEX: " << std::hex << number_ << std::endl;
+    // std::cout << "INTEGER HEX: " << IntegerToHex(number_) << std::endl;
+    // std::cout << "HEX STRING: " << HexToString(IntegerToHex(number_)) << std::endl;
+    // std::cout << "STRING HEX: " << StringToHex("a") << std::endl;
+    std::string original_str {"Hello"}; //{"Hello World! This is another test tp check the strenght the programs."};
+    // auto str_hex_ = StringToHex(original_str);
+    // auto hex_str_ = HexToString(str_hex_);
+    // std::cout << "ORIGINAL: " << str_hex_ << std::endl;
+    // std::cout << "ORIGINAL: " << hex_str_ << std::endl;
 
     RLPString test_ = RLPString::Create(original_str);
-    // std::vector<char> bytes_str = test_.GetBytes();
-    // std::cout << bytes_str.data() << std::endl;
-    // std::cout << test_.AsHexString() << std::endl;
+    std::vector<uint64_t> bytes_str = test_.GetBytes();
+    // std::cout << "Get Bytes: " << bytes_str.data() << std::endl;
+    // std::cout << "AS HEx: " << test_.AsHexString() << std::endl;
 
-    // std::vector<char> encoded_str = RLPEncoder::EncodeString(original_str);
-    // std::cout << encoded_str.data() << std::endl;
+    std::vector<uint64_t> encoded_str = RLPEncoder::EncodeString(original_str);
+    std::cout << "String: " << encoded_str.data() << std::endl;
 
-    std::vector<unsigned char> encoded_str_ = RLPEncoder::EncodeString(test_);
-    std::cout << encoded_str_.data() << std::endl;
+    std::vector<uint64_t> encoded_str_ = RLPEncoder::EncodeString(test_);
+    std::cout << "RLP String: " << encoded_str_.data() << std::endl;
 
-    std::string new_str_ = RLPDecoder::DecodeString(BytesToString(encoded_str_));
+    std::string byte_str_ = BytesToString(encoded_str_);
+    std::cout << "Byte String: " << byte_str_ << std::endl;
+    std::string new_str_ = RLPDecoder::DecodeString(byte_str_);
     std::cout << new_str_ << std::endl;
     // int t1 = 54;
     // wchar_t t2 = std::stoi("0x7f", 0, 16);
@@ -58,25 +39,25 @@ int main() {
     // std::cout << typeid(t2).name() << std::endl;
     // std::cout << typeid(original_str).name() << std::endl;
 
-    int num = 30;
-    std::string str = IntegerToHex(num);
-    std::cout << "HEX: " << str << std::endl;
-    // wchar_t t1 = std::stoi("0x1e", 0, 16);
-    // std::cout << t1 << std::endl;
-    wchar_t test = SafeParseInt(str, 16);
-    std::cout << test << std::endl;
+    // int num = 30;
+    // std::string str = IntegerToHex(num);
+    // std::cout << "HEX: " << str << std::endl;
+    // // wchar_t t1 = std::stoi("0x1e", 0, 16);
+    // // std::cout << t1 << std::endl;
+    // wchar_t test = SafeParseInt(str, 16);
+    // std::cout << test << std::endl;
 
-    std::string s = "0xBF0x540x320xFE0x880x100x340x6F0x54";
-    auto sub_str = SafeParseInt("BF", 16);
-    std::cout << s.substr(0, 4) << std::endl;
-    std::cout << std::hex << sub_str << std::endl;
+    // std::string s = "0xBF0x540x320xFE0x880x100x340x6F0x54";
+    // auto sub_str = SafeParseInt("BF", 16);
+    // std::cout << s.substr(0, 4) << std::endl;
+    // std::cout << std::hex << sub_str << std::endl;
 
-    std::string hex = StripHexPrefix(StringToHex(original_str));
-    std::cout << hex << std::endl;
-    unsigned char sub_cat {0};
-    for(std::string::size_type i = 0; i < hex.size(); i = i+2) {
-        sub_cat = SafeParseInt(hex.substr(i, 2), 16);
-        std::cout << hex.substr(i, 2)  << ": " << sub_cat << ": " << HexToString(std::to_string(sub_cat)) << std::endl;
-    }
+    // std::string hex = StripHexPrefix(StringToHex(original_str));
+    // std::cout << hex << std::endl;
+    // uint64_t sub_cat {0};
+    // for(std::string::size_type i = 0; i < hex.size(); i = i+2) {
+    //     sub_cat = SafeParseInt(hex.substr(i, 2), 16);
+    //     std::cout << hex.substr(i, 2)  << ": " << sub_cat << ": " << HexToString(std::to_string(sub_cat)) << std::endl;
+    // }
     return 0;
 }

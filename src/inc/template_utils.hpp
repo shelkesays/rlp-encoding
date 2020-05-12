@@ -5,7 +5,7 @@
 
 
 template<typename T>
-int IsNonValue(T input) {
+bool IsNonValue(T input) {
     bool status = false;
     if(input == NULL) {
         status = true;
@@ -24,9 +24,10 @@ int IsNonValue(T input) {
 
 template<typename T>
 std::vector<T> slice(const std::vector<T>& v, int start, int end) {
-   auto first = v.begin() + start;
-   auto last = v.begin() + end + 1;
-   std::vector<T> sliced_vector(first, last);
+   auto first_ = v.begin() + start;
+   auto last_ = v.begin() + end + 1;
+   std::vector<T> sliced_vector(first_, last_);
+
    return sliced_vector;
 }
 
@@ -64,31 +65,5 @@ int GetLength(const T& input) {
 
     return result;
 }
-
-// template<typename T>
-// std::vector<char> ToBytes(const T& input) {
-//     std::vector<char> bytes_;
-//     if(input.empty()) {
-//         bytes_ = EmptyByte();
-//     } else if(typeid(input) != typeid(std::vector<char>)) {
-//         if(typeid(input) == typeid(std::string)) {
-//             if(IsHexPrefixed(input)) {
-//                 bytes_ = StringToBytes(PadToEven(StripHexPrefix(input)));
-//             } else {
-//                 bytes_ = StringToBytes(input);
-//             }
-//         } else if((typeid(input) == typeid(long)) || (typeid(input) == typeid(uint64_t))) {
-//             // if(!input) {
-//                 // bytes_ = EmptyByte();
-//             // } else {
-//                 bytes_ = IntegerToBytes(input);
-//             // }
-//         } else {
-//             // Todo: Check if it is a large number array
-//         } 
-//     }
-
-//     return bytes_;
-// }
 
 #endif
