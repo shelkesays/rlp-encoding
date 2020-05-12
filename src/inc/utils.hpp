@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <vector>
-// #include <stdint.h>
 
 /**
  * Generates the empty byte

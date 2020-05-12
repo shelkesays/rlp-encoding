@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <vector>
-// #include <stdint.h>
 
 class RLPString {
     private:

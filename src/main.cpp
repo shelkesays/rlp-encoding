@@ -60,5 +60,18 @@ int main() {
     // std::cout << t1 << std::endl;
     wchar_t test = SafeParseInt(str, 16);
     std::cout << test << std::endl;
+
+    std::string s = "0xBF0x540x320xFE0x880x100x340x6F0x54";
+    auto sub_str = SafeParseInt("BF", 16);
+    std::cout << s.substr(0, 4) << std::endl;
+    std::cout << std::hex << sub_str << std::endl;
+
+    std::string hex = StripHexPrefix(StringToHex(original_str));
+    std::cout << hex << std::endl;
+    unsigned char sub_cat {0};
+    for(std::string::size_type i = 0; i < hex.size(); i = i+2) {
+        sub_cat = SafeParseInt(hex.substr(i, 2), 16);
+        std::cout << hex.substr(i, 2)  << ": " << sub_cat << ": " << HexToString(std::to_string(sub_cat)) << std::endl;
+    }
     return 0;
 }

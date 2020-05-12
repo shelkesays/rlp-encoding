@@ -1,10 +1,5 @@
 #include "inc/utils.hpp"
 
-// #include <vector>
-// #include <iostream>
-// #include <stdint.h>
-// #include <cctype>
-// #include <string>
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
@@ -40,8 +35,10 @@ std::vector<char> IntegerToBytes(const uint64_t input) {
     std::ostringstream output_;
     // Only positive integers are allowed
     output_ << abs(input);
-    
-    return StringToBytes(output_.str());
+
+    std::string converter_str_ = IntegerToHex(std::stoi(output_.str()));
+    bytes_.push_back(SafeParseInt(converter_str_, 16));
+    return bytes_;
 }
 
 uint64_t BytesToInteger(const std::vector<char>& input) {
