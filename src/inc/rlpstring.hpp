@@ -6,8 +6,8 @@
 
 class RLPString {
     private:
-        std::vector<uint64_t> value;
-        RLPString(const std::vector<uint64_t> value);
+        std::vector<uint64_t> bytes_;
+        RLPString(const std::vector<uint64_t> bytes);
 
     public:
         std::vector<uint64_t> GetBytes();

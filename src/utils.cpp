@@ -167,3 +167,11 @@ std::vector<uint64_t> ToBytes(const std::string& input) {
 
     return bytes_;
 }
+
+// std::vector<uint64_t> ArrayToBytes(const std::string input[]) {
+//     std::vector<uint64_t> bytes_;
+
+//     for(std::string::size_type i=0; i < sizeof(input); i++) {
+
+//     }
+// }

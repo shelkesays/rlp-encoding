@@ -146,6 +146,8 @@ std::string HexToString(const std::string& input);
  */
 std::vector<uint64_t> ToBytes(const std::string& input);
 
+// std::vector<uint64_t> ArrayToBytes(const std::string input[]);
+
 /**
  * @brief Check if input is non value or not, i.e. input is 0 / null / nullptr // ''
  * 
