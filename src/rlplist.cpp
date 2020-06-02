@@ -4,15 +4,15 @@
 
 
 RLPList::RLPList(const buffer_t input) {
-    bytes_ = input;
+    _bytes = input;
 }
 
 buffer_t RLPList::GetBytes() {
-    return bytes_;
+    return _bytes;
 }
 
 std::string RLPList::AsHexString() {
-    return BytesToString(bytes_);
+    return BytesToString(_bytes);
 }
 
 RLPList RLPList::Create(const std::vector <uint64_t> input) {

@@ -6,7 +6,7 @@
 
 class RLPList {
     private:
-        buffer_t bytes_;
+        buffer_t _bytes;
         RLPList(buffer_t bytes);
     public:
         buffer_t GetBytes();
@@ -14,6 +14,5 @@ class RLPList {
         static RLPList Create(const buffer_t input);
         static RLPList Create(const std::string input[]);
 };
-
 
 #endif

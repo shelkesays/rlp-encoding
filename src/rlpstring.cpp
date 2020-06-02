@@ -3,18 +3,18 @@
 #include "include/utils.hpp"
 
 RLPString::RLPString(const buffer_t input) {
-    bytes_ = input;
+    _bytes = input;
 }
 
 buffer_t RLPString::GetBytes() {
-    return bytes_;
+    return _bytes;
 }
 
 std::string RLPString::AsHexString() {
-    return BytesToString(bytes_);
+    return BytesToString(_bytes);
 }
 
-RLPString RLPString::Create(const std::vector <uint64_t> input) {
+RLPString RLPString::Create(const buffer_t input) {
     return RLPString(input);
 }
 

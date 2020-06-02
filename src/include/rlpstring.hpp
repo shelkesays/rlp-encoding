@@ -6,7 +6,7 @@
 
 class RLPString {
     private:
-        buffer_t bytes_;
+        buffer_t _bytes;
         RLPString(const buffer_t bytes);
 
     public:
