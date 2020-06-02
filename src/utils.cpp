@@ -1,22 +1,13 @@
-#include "inc/utils.hpp"
+#include "include/utils.hpp"
 
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
 
-#include "inc/constants.inc"
+#include "include/constants.hpp"
 
-std::string BytesToString(std::vector<uint64_t> input) {
-    std::string byte_str_ {""};
-    for(std::string::size_type i = 0; i < input.size(); i++ ) {
-        auto byte_ = input[i];
-        byte_str_ += byte_;
-    }
-    return byte_str_;
-}
-
-std::vector<uint64_t> EmptyByte() {
-    std::vector<uint64_t> bytes_ = StringToBytes(std::to_string(EMPTY_STRING));
+buffer_t EmptyByte() {
+    buffer_t bytes_ = StringToBytes(std::to_string(EMPTY_STRING));
     return bytes_;
 }
 
@@ -24,7 +15,7 @@ bool IsNumeric(const std::string& input) {
     return std::all_of(input.begin(), input.end(), ::isdigit);
 }
 
-std::uint64_t SafeParseInt(const std::string& input, unsigned int base) {
+uint64_t SafeParseInt(const std::string& input, unsigned int base) {
     if (input.substr(0, 2) == "00") {
         // Todo: Throw exception
         return 0;
@@ -33,8 +24,8 @@ std::uint64_t SafeParseInt(const std::string& input, unsigned int base) {
     return std::stoul(input, 0, base);
 }
 
-std::vector<uint64_t> StringToBytes(const std::string& input) {
-    std::vector<uint64_t> bytes_;
+buffer_t StringToBytes(const std::string& input) {
+    buffer_t bytes_;
     std::string hex_str_ {""};
     uint64_t hex_char_ {0};
     std::string original_string_ = StripHexPrefix(input);
@@ -48,8 +39,17 @@ std::vector<uint64_t> StringToBytes(const std::string& input) {
     return bytes_;
 }
 
-std::vector<uint64_t> IntegerToBytes(const uint64_t input) {
-    std::vector<uint64_t> bytes_;
+std::string BytesToString(buffer_t input) {
+    std::string byte_str_ {""};
+    for(std::string::size_type i = 0; i < input.size(); i++ ) {
+        auto byte_ = input[i];
+        byte_str_ += byte_;
+    }
+    return byte_str_;
+}
+
+buffer_t IntegerToBytes(const uint64_t input) {
+    buffer_t bytes_;
 
     std::ostringstream output_;
     // Only positive integers are allowed
@@ -60,7 +60,7 @@ std::vector<uint64_t> IntegerToBytes(const uint64_t input) {
     return bytes_;
 }
 
-uint64_t BytesToInteger(const std::vector<char>& input) {
+uint64_t BytesToInteger(const buffer_t& input) {
     uint64_t result_ {0};
     for(auto item_ : input) {
         result_ = result_ * 10 + item_;
@@ -108,7 +108,6 @@ std::string IntegerToHex(const uint64_t input) {
     }
 
     std::ostringstream stream_;
-    //stream_ << std::setfill('0') << std::setw(sizeof(input) * 2) << std::hex << input;
     stream_ << std::hex << input;
 
     return PadToEven(stream_.str());
@@ -148,8 +147,8 @@ std::string HexToString(const std::string& input) {
     return stream_;
 }
 
-std::vector<uint64_t> ToBytes(const std::string& input) {
-    std::vector<uint64_t> bytes_;
+buffer_t ToBytes(const std::string& input) {
+    buffer_t bytes_;
     if(input.empty()) {
         // Empty string
         bytes_ = EmptyByte();
@@ -168,8 +167,8 @@ std::vector<uint64_t> ToBytes(const std::string& input) {
     return bytes_;
 }
 
-// std::vector<uint64_t> ArrayToBytes(const std::string input[]) {
-//     std::vector<uint64_t> bytes_;
+// buffer_t ArrayToBytes(const std::string input[]) {
+//     buffer_t bytes_;
 
 //     for(std::string::size_type i=0; i < sizeof(input); i++) {
 

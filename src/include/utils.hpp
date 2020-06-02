@@ -4,12 +4,14 @@
 #include <iostream>
 #include <vector>
 
+#include "alias.hpp"
+
 /**
  * Generates the empty byte
  * 
- * @return std::vector<char> Empty byte 
+ * @return buffer_t Empty byte 
  */
-std::vector<uint64_t> EmptyByte();
+buffer_t EmptyByte();
 
 /**
  * Check if given string is numeric or not
@@ -44,15 +46,15 @@ std::string StripHexPrefix(const std::string& input);
  * @param base base at which to parse the number, i.e. 2, 3, octal, hex, etc.
  * @return std::uint64_t parsed integer number
  */
-std::uint64_t SafeParseInt(const std::string& input, unsigned int base=10);
+uint64_t SafeParseInt(const std::string& input, unsigned int base=10);
 
 /**
  * Convert Integer to Bytes
  * 
  * @param input Large integer to be converted to bytes
- * @return std::vector<char> bytes representation of the integer
+ * @return buffer_t bytes representation of the integer
  */
-std::vector<uint64_t> IntegerToBytes(const uint64_t input);
+buffer_t IntegerToBytes(const uint64_t input);
 
 /**
  * Convert bytes to Integer
@@ -60,7 +62,7 @@ std::vector<uint64_t> IntegerToBytes(const uint64_t input);
  * @param input bytes representation of the number
  * @return uint64_t integer number
  */
-uint64_t BytesToInteger(const std::vector<uint64_t>& input);
+uint64_t BytesToInteger(const buffer_t& input);
 
 /**
  * Convert string to bytes 
@@ -68,7 +70,7 @@ uint64_t BytesToInteger(const std::vector<uint64_t>& input);
  * @param input String to be converted to bytes
  * @return std::vector<char> bytes representation of the string
  */
-std::vector<uint64_t> StringToBytes(const std::string& input);
+buffer_t StringToBytes(const std::string& input);
 
 /**
  * Convert bytes to Hex string
@@ -76,7 +78,7 @@ std::vector<uint64_t> StringToBytes(const std::string& input);
  * @param input Bytes to be converted in hex string
  * @return std::string Hex representation of string
  */
-std::string BytesToString(std::vector<uint64_t> input);
+std::string BytesToString(buffer_t input);
 
 /**
  * Insert Hex prefix to the hexadecimal string
@@ -144,7 +146,7 @@ std::string HexToString(const std::string& input);
  * @param input String to be converted to bytes
  * @return std::vector<uint64_t> Bytes representation
  */
-std::vector<uint64_t> ToBytes(const std::string& input);
+buffer_t ToBytes(const std::string& input);
 
 // std::vector<uint64_t> ArrayToBytes(const std::string input[]);
 
@@ -179,7 +181,7 @@ int GetLength(const T& input);
  * @return std::vector<T> Sliced vector
  */
 template<typename T>
-std::vector<T> slice(const std::vector<T>& v, int start, int end);
+std::vector<T> Slice(const std::vector<T>& v, int start, int end);
 
 #include "template_utils.hpp"
 

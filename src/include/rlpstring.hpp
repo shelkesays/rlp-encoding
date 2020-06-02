@@ -1,18 +1,18 @@
 #ifndef RLP_RLP_STRING_H
 #define RLP_RLP_STRING_H
 
-#include <iostream>
-#include <vector>
+#include <string>
+#include "alias.hpp"
 
 class RLPString {
     private:
-        std::vector<uint64_t> bytes_;
-        RLPString(const std::vector<uint64_t> bytes);
+        buffer_t bytes_;
+        RLPString(const buffer_t bytes);
 
     public:
-        std::vector<uint64_t> GetBytes();
+        buffer_t GetBytes();
         std::string AsHexString();
-        static RLPString Create(const std::vector<uint64_t> input);
+        static RLPString Create(const buffer_t input);
         static RLPString Create(const char input);
         static RLPString Create(const uint64_t input);
         static RLPString Create(const long input);

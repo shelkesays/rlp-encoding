@@ -1,12 +1,12 @@
-#include "inc/rlpstring.hpp" 
+#include "include/rlpstring.hpp" 
 
-#include "inc/utils.hpp"
+#include "include/utils.hpp"
 
-RLPString::RLPString(const std::vector<uint64_t> input) {
+RLPString::RLPString(const buffer_t input) {
     bytes_ = input;
 }
 
-std::vector<uint64_t> RLPString::GetBytes() {
+buffer_t RLPString::GetBytes() {
     return bytes_;
 }
 
@@ -23,7 +23,7 @@ RLPString RLPString::Create(const uint64_t input) {
         // Only positive non-zero integers are allowed.
         return Create(EmptyByte());
     }
-    std::vector<uint64_t> bytes_;
+    buffer_t bytes_;
     bytes_.push_back(input);
     return RLPString(bytes_);
 }
@@ -33,7 +33,7 @@ RLPString RLPString::Create(const char input) {
         // Only positive non-zero integers are allowed.
         return Create(EmptyByte());
     }
-    std::vector<uint64_t> bytes_ = IntegerToBytes(input);
+    buffer_t bytes_ = IntegerToBytes(input);
     return RLPString(bytes_);
 }
 
@@ -49,6 +49,6 @@ RLPString RLPString::Create(const std::string input) {
     if (input.empty()) {
         return Create(EmptyByte());
     }
-    std::vector<uint64_t> bytes_ = StringToBytes(StringToHex(input));
+    buffer_t bytes_ = StringToBytes(StringToHex(input));
     return RLPString(bytes_);
 }

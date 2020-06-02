@@ -1,13 +1,13 @@
-#include "inc/rlplist.hpp"
+#include "include/rlplist.hpp"
 
-#include "inc/utils.hpp"
+#include "include/utils.hpp"
 
 
-RLPList::RLPList(const std::vector<uint64_t> input) {
+RLPList::RLPList(const buffer_t input) {
     bytes_ = input;
 }
 
-std::vector<uint64_t> RLPList::GetBytes() {
+buffer_t RLPList::GetBytes() {
     return bytes_;
 }
 

@@ -1,7 +1,7 @@
 #ifndef RLP_TEMPLATE_UTILS_H
 #define RLP_TEMPLATE_UTILS_H
 
-#include "constants.inc"
+#include "constants.hpp"
 
 
 template<typename T>
@@ -23,7 +23,7 @@ bool IsNonValue(T input) {
 }
 
 template<typename T>
-std::vector<T> slice(const std::vector<T>& v, int start, int end) {
+std::vector<T> Slice(const std::vector<T>& v, int start, int end) {
    auto first_ = v.begin() + start;
    auto last_ = v.begin() + end + 1;
    std::vector<T> sliced_vector(first_, last_);
@@ -37,7 +37,7 @@ int GetLength(const T& input) {
         return EMPTY_STRING;
     }
 
-    const std::vector<char> input_byte_ = ToBytes(input);
+    const buffer_t input_byte_ = ToBytes(input);
     const auto first_byte_ = input_byte_[0];
 
     int result = 0;
@@ -53,12 +53,11 @@ int GetLength(const T& input) {
         result = first_byte_ - SHORT_LIST;
     } else {
         // a list over 55 bytes long
-        const auto l_length_ = first_byte_ - LONG_LIST;
+        const uint64_t l_length_ = first_byte_ - LONG_LIST;
 
-        const std::vector<char> part_byte_ = slice(input_byte_, 1, l_length_);
-        // part_byte_ = std::vector<char>(input_byte_.begin() + 1, input_byte_.begin() + l_length_);
+        buffer_t part_byte_ = Slice(input_byte_, 1, l_length_);
 
-        const auto length = SafeParseInt(part_byte_.data(), 16); 
+        const uint64_t length = SafeParseInt(BytesToString(part_byte_), 16); 
 
         result = l_length_ + length;
     }
