@@ -10,9 +10,9 @@ class RLPList {
         RLPList(buffer_t bytes);
     public:
         buffer_t GetBytes();
-        std::string AsHexString();
+        // std::string AsHexString();
         static RLPList Create(const buffer_t input);
-        static RLPList Create(const std::string input[]);
+        static RLPList Create(const std::string input);
 };
 
 #endif

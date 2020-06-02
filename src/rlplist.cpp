@@ -11,9 +11,9 @@ buffer_t RLPList::GetBytes() {
     return _bytes;
 }
 
-std::string RLPList::AsHexString() {
-    return BytesToString(_bytes);
-}
+// std::string RLPList::AsHexString() {
+//     return BytesToString(_bytes);
+// }
 
 RLPList RLPList::Create(const std::vector <uint64_t> input) {
     return RLPList(input);
