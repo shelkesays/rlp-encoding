@@ -35,13 +35,13 @@ buffer_t RLPEncoder::EncodeLength(const int len, const int offset) {
 buffer_t RLPEncoder::Encode(const buffer_t bytes_value) {
     buffer_t encode_;
 
-    if (bytes_value.empty() || (bytes_value.size() == 1 && bytes_value[0] == EMPTY_STRING)) {
+    if (bytes_value.empty() || (bytes_value.size() == 1 && bytes_value.at(0) == EMPTY_STRING)) {
         // The input is non value
         encode_.push_back(NON_VALUE_STRING);
-    } else if(bytes_value.size() == 1 && bytes_value[0] <= SHORT_STRING) {
+    } else if(bytes_value.size() == 1 && bytes_value.at(0) <= SHORT_STRING) {
         // It's a single byte between [0x00, 0x7f]
         encode_ = bytes_value;
-    } else if(bytes_value.size() == 1 && (bytes_value[0] > SHORT_STRING && bytes_value[0] <= LAST_STRING)) {
+    } else if(bytes_value.size() == 1 && (bytes_value.at(0) > SHORT_STRING && bytes_value.at(0) <= LAST_STRING)) {
         // It's a single byte between [0x80, 0xff]
         encode_ = EncodeLength(bytes_value.size(), SHORT_STRING + 1);
         encode_.insert(encode_.end(), bytes_value.begin(), bytes_value.end());
