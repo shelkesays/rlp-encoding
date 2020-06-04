@@ -1,4 +1,10 @@
-set(SOURCE main.cpp)
-add_executable(verified-utils ${SOURCE})
+add_library(
+    utils
+    src/alias.hpp
+    src/constants.hpp
+    src/generalised.hpp
+    src/hex.hpp
+    src/hex.cpp
+)
 
-target_link_libraries(verified-utils PRIVATE say-hello)
+target_include_directories(utils PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
