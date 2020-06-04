@@ -2,6 +2,7 @@
 #define RLP_RLP_STRING_H
 
 #include <string>
+
 #include "alias.hpp"
 
 class RLPString {

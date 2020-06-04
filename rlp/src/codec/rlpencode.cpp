@@ -1,8 +1,8 @@
-#include "include/rlpencode.hpp"
+#include "rlpencode.hpp"
 
-#include "include/constants.hpp"
-#include "include/utils.hpp"
-#include "include/rlpstring.hpp"
+#include "constants.hpp"
+#include "utils.hpp"
+#include "rlpstring.hpp"
 
 
 std::string RLPEncoder::GetBytes(const buffer_t input) {

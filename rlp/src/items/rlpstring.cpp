@@ -1,6 +1,6 @@
-#include "include/rlpstring.hpp" 
+#include "rlpstring.hpp" 
 
-#include "include/utils.hpp"
+#include "utils.hpp"
 
 RLPString::RLPString(const buffer_t input) {
     _bytes = input;

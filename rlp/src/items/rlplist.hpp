@@ -2,6 +2,7 @@
 #define RLP_RLP_LIST_H
 
 #include <string>
+
 #include "alias.hpp"
 
 class RLPList {

@@ -1,6 +1,6 @@
-#include "include/rlplist.hpp"
+#include "rlplist.hpp"
 
-#include "include/utils.hpp"
+#include "utils.hpp"
 
 
 RLPList::RLPList(const buffer_t input) {

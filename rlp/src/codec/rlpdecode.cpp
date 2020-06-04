@@ -1,7 +1,7 @@
-#include "include/rlpdecode.hpp"
+#include "rlpdecode.hpp"
 
-#include "include/utils.hpp"
-#include "include/rlpstring.hpp"
+#include "utils.hpp"
+#include "rlpstring.hpp"
 
 
 buffer_t RLPDecoder::Decode(const buffer_t& bytes_input) {
