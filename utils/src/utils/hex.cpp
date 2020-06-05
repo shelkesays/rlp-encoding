@@ -42,13 +42,6 @@ bool utils::IsHexString(const std::string& input) {
     bool flag_ = true;
 
     std::string stripped_string_ = StripHexPrefix(input);
-    
-    // for(std::string::size_type i = 0; i < stripped_string_.length(); i++) {
-    //     if(!isxdigit(stripped_string_[i])) {
-    //         flag_ = false;
-    //         break;
-    //     }
-    // }
 
     flag_ = std::all_of(stripped_string_.begin(), stripped_string_.end(), ::isxdigit);
     
