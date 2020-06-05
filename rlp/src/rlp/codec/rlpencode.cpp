@@ -1,15 +1,17 @@
 #include "rlpencode.hpp"
 
-#include "constants.hpp"
-#include "utils.hpp"
-#include "rlpstring.hpp"
+
+#include <utils/constants.hpp>
+#include <utils/hex.hpp>
+
+#include "rlp/items/rlpstring.hpp"
 
 
 std::string RLPEncoder::GetBytes(const buffer_t input) {
     std::string byte_str_ {"<Bytes"};
     for(std::string::size_type i = 0; i < input.size(); i++ ) {
         auto byte_ = input[i];
-        byte_str_ += " " + IntegerToHex(byte_);
+        byte_str_ += " " + utils::IntegerToHex(byte_);
     }
 
     return byte_str_ + ">";
@@ -18,14 +20,14 @@ std::string RLPEncoder::GetBytes(const buffer_t input) {
 buffer_t RLPEncoder::EncodeLength(const int len, const int offset) {
     buffer_t encode_length_;
     if (len <= SINGLE_BYTE_STRING) {
-        encode_length_ = IntegerToBytes(len + offset);
+        encode_length_ = utils::IntegerToBytes(len + offset);
     } else {
-        const std::string hex_len_ = IntegerToHex(len);
-        buffer_t second_part_ = StringToBytes(hex_len_);
+        const std::string hex_len_ = utils::IntegerToHex(len);
+        buffer_t second_part_ = utils::StringToBytes(hex_len_);
 
         const auto l_length_ = second_part_.size();
         const auto number_ = offset + l_length_;
-        encode_length_ = IntegerToBytes(number_);
+        encode_length_ = utils::IntegerToBytes(number_);
         encode_length_.insert(encode_length_.end(), second_part_.begin(), second_part_.end());
     }
 

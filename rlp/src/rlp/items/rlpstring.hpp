@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "alias.hpp"
+#include <utils/alias.hpp>
 
 class RLPString {
     private:

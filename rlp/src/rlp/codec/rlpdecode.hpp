@@ -2,7 +2,8 @@
 #define RLP_RLP_DECODE_H
 
 #include <string>
-#include "alias.hpp"
+
+#include <utils/alias.hpp>
 
 class RLPDecoder {
     private:

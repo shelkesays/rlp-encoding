@@ -1,7 +1,6 @@
 #include "rlplist.hpp"
 
-#include "utils.hpp"
-
+#include <utils/hex.hpp>
 
 RLPList::RLPList(const buffer_t input) {
     _bytes = input;
@@ -19,7 +18,7 @@ RLPList RLPList::Create(const std::vector <uint64_t> input) {
     return RLPList(input);
 }
 
-RLPList RLPList::Create(const std::string input[]) {
+RLPList RLPList::Create(const std::string input) {
     // Todo: Need to change this
-    return RLPList(EmptyByte());
+    return RLPList(utils::EmptyByte());
 }

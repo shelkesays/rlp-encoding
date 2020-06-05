@@ -1,8 +1,7 @@
 #ifndef RLP_RLP_ENCODE_H
 #define RLP_RLP_ENCODE_H
 
-#include "alias.hpp"
-#include "rlpstring.hpp"
+#include "rlp/items/rlpstring.hpp"
 
 class RLPEncoder {
     private:
