@@ -9,8 +9,6 @@
 #include "alias.hpp"
 
 buffer_t utils::EmptyByte() {
-    // buffer_t bytes_ = StringToBytes(std::to_string(EMPTY_STRING));
-    // return bytes_;
     return StringToBytes(std::to_string(EMPTY_STRING), true);
 }
 
