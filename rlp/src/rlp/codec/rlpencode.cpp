@@ -6,11 +6,10 @@
 
 #include "rlp/items/rlpstring.hpp"
 
-
 std::string RLPEncoder::GetBytes(const buffer_t input) {
     std::string byte_str_ {"<Bytes"};
     for(std::string::size_type i = 0; i < input.size(); i++ ) {
-        auto byte_ = input[i];
+        uint64_t byte_ = input[i];
         byte_str_ += " " + utils::IntegerToHex(byte_);
     }
 
