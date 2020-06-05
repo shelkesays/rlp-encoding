@@ -31,6 +31,10 @@
 *.out
 *.app
 
+# directories
+build
+obj
+
 # IDE Specific files and directories
 .vscode
 
