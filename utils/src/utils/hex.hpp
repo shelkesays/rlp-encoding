@@ -132,9 +132,10 @@ namespace utils {
      * @brief Convert string to bytes 
      * 
      * @param input String to be converted to bytes
+     * @param ishex flag to indicate whether provided string is hex or not
      * @return buffer_t bytes representation of the string
      */
-    buffer_t StringToBytes(const std::string& input);
+    buffer_t StringToBytes(const std::string& input, const bool ishex=false);
 
     /**
      * @brief Convert bytes to Hex string

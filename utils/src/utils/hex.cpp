@@ -1,5 +1,6 @@
 #include "hex.hpp"
 
+#include <iostream>
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
@@ -10,7 +11,7 @@
 buffer_t utils::EmptyByte() {
     // buffer_t bytes_ = StringToBytes(std::to_string(EMPTY_STRING));
     // return bytes_;
-    return StringToBytes(std::to_string(EMPTY_STRING));
+    return StringToBytes(std::to_string(EMPTY_STRING), true);
 }
 
 bool utils::IsNumeric(const std::string& input) {
@@ -19,20 +20,6 @@ bool utils::IsNumeric(const std::string& input) {
 
 bool utils::IsHexPrefixed(const std::string& input) {
     return input.substr(0, 2) == "0x";
-}
-
-bool utils::IsHexString(const std::string& input) {
-    bool flag_ = true;
-    std::string stripped_string_ = StripHexPrefix(input);
-
-    for(std::string::size_type i = 0; i < stripped_string_.length(); i++) {
-        if(!isxdigit(stripped_string_.at(i))) {
-            flag_ = false;
-            break;
-        }
-    }
-    
-    return flag_;
 }
 
 std::string utils::InsertHexPrefix(const std::string& input) {
@@ -49,6 +36,23 @@ std::string utils::StripHexPrefix(const std::string& input) {
 
 std::string utils::PadToEven(const std::string& input) {
     return (input.length() % 2) ? "0" + input : input;
+}
+
+bool utils::IsHexString(const std::string& input) {
+    bool flag_ = true;
+
+    std::string stripped_string_ = StripHexPrefix(input);
+    
+    // for(std::string::size_type i = 0; i < stripped_string_.length(); i++) {
+    //     if(!isxdigit(stripped_string_[i])) {
+    //         flag_ = false;
+    //         break;
+    //     }
+    // }
+
+    flag_ = std::all_of(stripped_string_.begin(), stripped_string_.end(), ::isxdigit);
+    
+    return flag_;
 }
 
 std::string utils::IntegerToHex(const uint64_t input) {
@@ -125,13 +129,14 @@ uint64_t utils::BytesToInteger(const buffer_t& input) {
     return result_;
 }
 
-buffer_t utils::StringToBytes(const std::string& input) {
+buffer_t utils::StringToBytes(const std::string& input, const bool ishex) {
     buffer_t bytes_;
     std::string hex_str_ {""};
     uint64_t hex_char_ {0};
     
     std::string original_string_ {""};
-    if(!IsHexString(input)) {
+    
+    if(!ishex || !IsHexString(input)) {
         original_string_ = StringToHex(input, false);
     } else {
         original_string_ = StripHexPrefix(input);
@@ -149,7 +154,7 @@ buffer_t utils::StringToBytes(const std::string& input) {
 std::string utils::BytesToString(const buffer_t& input) {
     std::string byte_str_ {""};
     for(std::string::size_type i = 0; i < input.size(); i++ ) {
-        auto byte_ = input[i];
+        uint64_t byte_ = input[i];
         byte_str_ += byte_;
     }
     return byte_str_;
@@ -166,7 +171,7 @@ buffer_t utils::ToBytes(const std::string& input) {
         bytes_ = IntegerToBytes(number_);
     } else {
         if(IsHexString(input)) {
-            bytes_ = StringToBytes(PadToEven(StripHexPrefix(input)));
+            bytes_ = StringToBytes(PadToEven(StripHexPrefix(input)), true);
         } else {
             bytes_ = StringToBytes(input);
         }
