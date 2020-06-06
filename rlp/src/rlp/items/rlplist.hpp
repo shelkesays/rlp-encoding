@@ -8,13 +8,14 @@
 namespace rlp {
     class RLPList {
         private:
-            buffer_t _bytes;
-            RLPList(buffer_t bytes);
+            buffer_array_t _bytes;
+            RLPList(buffer_array_t bytes);
         public:
-            buffer_t GetBytes();
+            buffer_array_t GetBytes();
             // std::string AsHexString();
             static RLPList Create(const buffer_t input);
-            static RLPList Create(const std::string input);
+            static RLPList Create(const buffer_array_t input);
+            static RLPList Create(const variant_t input);
     };
 }
 
