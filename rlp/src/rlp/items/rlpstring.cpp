@@ -2,23 +2,23 @@
 
 #include <utils/hex.hpp>
 
-RLPString::RLPString(const buffer_t input) {
+rlp::RLPString::RLPString(const buffer_t input) {
     _bytes = input;
 }
 
-buffer_t RLPString::GetBytes() {
+buffer_t rlp::RLPString::GetBytes() {
     return _bytes;
 }
 
-std::string RLPString::AsHexString() {
+std::string rlp::RLPString::AsHexString() {
     return utils::BytesToString(_bytes);
 }
 
-RLPString RLPString::Create(const buffer_t input) {
+rlp::RLPString rlp::RLPString::Create(const buffer_t input) {
     return RLPString(input);
 }
 
-RLPString RLPString::Create(const uint64_t input) {
+rlp::RLPString rlp::RLPString::Create(const uint64_t input) {
     if (input == 0) {
         // Only positive non-zero integers are allowed.
         return Create(utils::EmptyByte());
@@ -28,7 +28,7 @@ RLPString RLPString::Create(const uint64_t input) {
     return RLPString(bytes_);
 }
 
-RLPString RLPString::Create(const char input) {
+rlp::RLPString rlp::RLPString::Create(const char input) {
     if (input == 0) {
         // Only positive non-zero integers are allowed.
         return Create(utils::EmptyByte());
@@ -37,7 +37,7 @@ RLPString RLPString::Create(const char input) {
     return RLPString(bytes_);
 }
 
-RLPString RLPString::Create(const long input) {
+rlp::RLPString rlp::RLPString::Create(const long input) {
     if (input == 0) {
         // Only positive non-zero integers are allowed.
         return Create(utils::EmptyByte());
@@ -45,7 +45,7 @@ RLPString RLPString::Create(const long input) {
     return Create((uint64_t)input);
 }
 
-RLPString RLPString::Create(const std::string input) {
+rlp::RLPString rlp::RLPString::Create(const std::string input) {
     if (input.empty()) {
         return Create(utils::EmptyByte());
     }

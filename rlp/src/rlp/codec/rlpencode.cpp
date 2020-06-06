@@ -6,7 +6,7 @@
 
 #include "rlp/items/rlpstring.hpp"
 
-std::string RLPEncoder::GetBytes(const buffer_t input) {
+std::string rlp::RLPEncoder::GetBytes(const buffer_t input) {
     std::string byte_str_ {"<Bytes"};
     for(std::string::size_type i = 0; i < input.size(); i++ ) {
         uint64_t byte_ = input[i];
@@ -16,7 +16,7 @@ std::string RLPEncoder::GetBytes(const buffer_t input) {
     return byte_str_ + ">";
 }
 
-buffer_t RLPEncoder::EncodeLength(const int len, const int offset) {
+buffer_t rlp::RLPEncoder::EncodeLength(const int len, const int offset) {
     buffer_t encode_length_;
     if (len <= SINGLE_BYTE_STRING) {
         encode_length_ = utils::IntegerToBytes(len + offset);
@@ -33,7 +33,7 @@ buffer_t RLPEncoder::EncodeLength(const int len, const int offset) {
     return encode_length_;
 }
 
-buffer_t RLPEncoder::Encode(const buffer_t bytes_value) {
+buffer_t rlp::RLPEncoder::Encode(const buffer_t bytes_value) {
     buffer_t encode_;
 
     if (bytes_value.empty() || (bytes_value.size() == 1 && bytes_value.at(0) == EMPTY_STRING)) {
@@ -59,11 +59,11 @@ buffer_t RLPEncoder::Encode(const buffer_t bytes_value) {
     return encode_;
 }
 
-buffer_t RLPEncoder::EncodeString(RLPString input) {
+buffer_t rlp::RLPEncoder::EncodeString(RLPString input) {
     return Encode(input.GetBytes());
 }
 
-buffer_t RLPEncoder::EncodeString(const std::string input) {
+buffer_t rlp::RLPEncoder::EncodeString(const std::string input) {
     RLPString rlp_str_ = RLPString::Create(input);
     return EncodeString(rlp_str_);
 }

@@ -6,7 +6,7 @@
 #include "rlp/items/rlpstring.hpp"
 
 
-buffer_t RLPDecoder::Decode(const buffer_t& bytes_input) {
+buffer_t rlp::RLPDecoder::Decode(const buffer_t& bytes_input) {
     buffer_t decoded_;
     const auto first_byte_ = bytes_input[0];
     int length_ {0};
@@ -46,7 +46,7 @@ buffer_t RLPDecoder::Decode(const buffer_t& bytes_input) {
 }
 
 
-std::string RLPDecoder::DecodeByte(const buffer_t& input) {
+std::string rlp::RLPDecoder::DecodeByte(const buffer_t& input) {
     if(input.empty()) {
         return utils::BytesToString(utils::EmptyByte());
     }
@@ -57,7 +57,7 @@ std::string RLPDecoder::DecodeByte(const buffer_t& input) {
 }
 
 
-std::string RLPDecoder::DecodeString(const std::string& input) {
+std::string rlp::RLPDecoder::DecodeString(const std::string& input) {
     if(input.empty()) {
         return utils::BytesToString(utils::EmptyByte());
     }

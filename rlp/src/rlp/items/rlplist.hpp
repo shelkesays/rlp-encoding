@@ -5,15 +5,17 @@
 
 #include <utils/alias.hpp>
 
-class RLPList {
-    private:
-        buffer_t _bytes;
-        RLPList(buffer_t bytes);
-    public:
-        buffer_t GetBytes();
-        // std::string AsHexString();
-        static RLPList Create(const buffer_t input);
-        static RLPList Create(const std::string input);
-};
+namespace rlp {
+    class RLPList {
+        private:
+            buffer_t _bytes;
+            RLPList(buffer_t bytes);
+        public:
+            buffer_t GetBytes();
+            // std::string AsHexString();
+            static RLPList Create(const buffer_t input);
+            static RLPList Create(const std::string input);
+    };
+}
 
 #endif

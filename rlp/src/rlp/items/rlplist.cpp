@@ -2,23 +2,23 @@
 
 #include <utils/hex.hpp>
 
-RLPList::RLPList(const buffer_t input) {
+rlp::RLPList::RLPList(const buffer_t input) {
     _bytes = input;
 }
 
-buffer_t RLPList::GetBytes() {
+buffer_t rlp::RLPList::GetBytes() {
     return _bytes;
 }
 
-// std::string RLPList::AsHexString() {
+// std::string rlp::RLPList::AsHexString() {
 //     return BytesToString(_bytes);
 // }
 
-RLPList RLPList::Create(const std::vector <uint64_t> input) {
+rlp::RLPList rlp::RLPList::Create(const std::vector <uint64_t> input) {
     return RLPList(input);
 }
 
-RLPList RLPList::Create(const std::string input) {
+rlp::RLPList rlp::RLPList::Create(const std::string input) {
     // Todo: Need to change this
     return RLPList(utils::EmptyByte());
 }
