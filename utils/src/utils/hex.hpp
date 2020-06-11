@@ -7,7 +7,9 @@
 
 #include "alias.hpp"
 
-namespace utils {
+namespace verified {
+
+    namespace utils {
 
     /**
      * Generates the empty byte
@@ -189,6 +191,8 @@ namespace utils {
     std::vector<T> Slice(const std::vector<T>& v, int start, int end);
 
     #include "generalised.hpp"
+
+}
 
 }
 

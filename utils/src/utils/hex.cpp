@@ -8,23 +8,23 @@
 #include "constants.hpp"
 #include "alias.hpp"
 
-buffer_t utils::EmptyByte() {
+buffer_t verified::utils::EmptyByte() {
     return StringToBytes(std::to_string(EMPTY_STRING), true);
 }
 
-bool utils::IsNumeric(const std::string& input) {
+bool verified::utils::IsNumeric(const std::string& input) {
     return std::all_of(input.begin(), input.end(), ::isdigit);
 }
 
-bool utils::IsHexPrefixed(const std::string& input) {
+bool verified::utils::IsHexPrefixed(const std::string& input) {
     return input.substr(0, 2) == "0x";
 }
 
-std::string utils::InsertHexPrefix(const std::string& input) {
+std::string verified::utils::InsertHexPrefix(const std::string& input) {
     return "0x" + input;
 }
 
-std::string utils::StripHexPrefix(const std::string& input) {
+std::string verified::utils::StripHexPrefix(const std::string& input) {
     std::string result_ {input};
     if(IsHexPrefixed(input)) {
         result_ = input.substr(2, input.length());
@@ -32,11 +32,11 @@ std::string utils::StripHexPrefix(const std::string& input) {
     return result_;
 }
 
-std::string utils::PadToEven(const std::string& input) {
+std::string verified::utils::PadToEven(const std::string& input) {
     return (input.length() % 2) ? "0" + input : input;
 }
 
-bool utils::IsHexString(const std::string& input) {
+bool verified::utils::IsHexString(const std::string& input) {
     bool flag_ = true;
 
     std::string stripped_string_ = StripHexPrefix(input);
@@ -46,7 +46,7 @@ bool utils::IsHexString(const std::string& input) {
     return flag_;
 }
 
-std::string utils::IntegerToHex(const uint64_t input) {
+std::string verified::utils::IntegerToHex(const uint64_t input) {
     if (input < 0) {
         // Todo: Throw an error
         return "";
@@ -58,13 +58,13 @@ std::string utils::IntegerToHex(const uint64_t input) {
     return PadToEven(stream_.str());
 }
 
-uint64_t utils::HexToInteger(const std::string& input) {
+uint64_t verified::utils::HexToInteger(const std::string& input) {
     std::string hex_str_ = StripHexPrefix(input);
     uint64_t number = std::stoul(hex_str_, nullptr, 16);
     return number;
 }
 
-std::string utils::StringToHex(const std::string& input, bool prefix, bool upper) {
+std::string verified::utils::StringToHex(const std::string& input, bool prefix, bool upper) {
     std::ostringstream stream_;
 
     unsigned int converter_ {0};
@@ -78,7 +78,7 @@ std::string utils::StringToHex(const std::string& input, bool prefix, bool upper
     return prefix ? InsertHexPrefix(stream_.str()) : stream_.str();
 }
 
-std::string utils::HexToString(const std::string& input) {
+std::string verified::utils::HexToString(const std::string& input) {
     std::string stream_ {""};
     std::string hex_str_ {""};
 
@@ -91,7 +91,7 @@ std::string utils::HexToString(const std::string& input) {
     return stream_;
 }
 
-std::uint64_t utils::SafeParseInt(const std::string& input, unsigned int base) {
+std::uint64_t verified::utils::SafeParseInt(const std::string& input, unsigned int base) {
     if (input.substr(0, 2) == "00") {
         // Todo: Throw exception
         return 0;
@@ -100,7 +100,7 @@ std::uint64_t utils::SafeParseInt(const std::string& input, unsigned int base) {
     return std::stoul(input, 0, base);
 }
 
-buffer_t utils::IntegerToBytes(const uint64_t input) {
+buffer_t verified::utils::IntegerToBytes(const uint64_t input) {
     buffer_t bytes_;
 
     std::ostringstream output_;
@@ -112,7 +112,7 @@ buffer_t utils::IntegerToBytes(const uint64_t input) {
     return bytes_;
 }
 
-uint64_t utils::BytesToInteger(const buffer_t& input) {
+uint64_t verified::utils::BytesToInteger(const buffer_t& input) {
     uint64_t result_ {0};
     for(auto item_ : input) {
         result_ = result_ * 10 + item_;
@@ -120,7 +120,7 @@ uint64_t utils::BytesToInteger(const buffer_t& input) {
     return result_;
 }
 
-buffer_t utils::StringToBytes(const std::string& input, const bool ishex) {
+buffer_t verified::utils::StringToBytes(const std::string& input, const bool ishex) {
     buffer_t bytes_;
     std::string hex_str_ {""};
     uint64_t hex_char_ {0};
@@ -142,7 +142,7 @@ buffer_t utils::StringToBytes(const std::string& input, const bool ishex) {
     return bytes_;
 }
 
-std::string utils::BytesToString(const buffer_t& input) {
+std::string verified::utils::BytesToString(const buffer_t& input) {
     std::string byte_str_ {""};
     for(std::string::size_type i = 0; i < input.size(); i++ ) {
         uint64_t byte_ = input[i];
@@ -151,7 +151,7 @@ std::string utils::BytesToString(const buffer_t& input) {
     return byte_str_;
 }
 
-buffer_t utils::ToBytes(const std::string& input) {
+buffer_t verified::utils::ToBytes(const std::string& input) {
     buffer_t bytes_;
     if(input.empty()) {
         // Empty string
