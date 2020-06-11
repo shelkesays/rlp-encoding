@@ -13,9 +13,9 @@ namespace rlp {
         public:
             buffer_array_t GetBytes();
             // std::string AsHexString();
-            static RLPList Create(const buffer_t input);
-            static RLPList Create(const buffer_array_t input);
-            static RLPList Create(const variant_t input);
+            static RLPList Create(const buffer_t& input);
+            static RLPList Create(const buffer_array_t& input);
+            static RLPList Create(const variant_t& input);
     };
 }
 

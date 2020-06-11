@@ -14,15 +14,17 @@ buffer_array_t rlp::RLPList::GetBytes() {
 //     return BytesToString(_bytes);
 // }
 
-rlp::RLPList rlp::RLPList::Create(const buffer_array_t input) {
-    return RLPList(input);
+rlp::RLPList rlp::RLPList::Create(const buffer_t& input) {
+    buffer_array_t test_;
+    test_.push_back(input);
+    return RLPList(test_);
 }
 
-rlp::RLPList rlp::RLPList::Create(const buffer_array_t input) {
+rlp::RLPList rlp::RLPList::Create(const buffer_array_t& input) {
     if(input.empty()) {
-        // buffer_t empty_byte_ = utils::EmptyByte();
+        // buffer_t empty_byte_ = verified::utils::EmptyByte();
         buffer_array_t empty_byte_;
-        empty_byte_.push_back(utils::EmptyByte());
+        empty_byte_.push_back(verified::utils::EmptyByte());
     }
 
 

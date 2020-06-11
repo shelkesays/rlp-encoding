@@ -11,7 +11,7 @@ buffer_t rlp::RLPString::GetBytes() {
 }
 
 std::string rlp::RLPString::AsHexString() {
-    return utils::BytesToString(_bytes);
+    return verified::utils::BytesToString(_bytes);
 }
 
 rlp::RLPString rlp::RLPString::Create(const buffer_t input) {
@@ -21,7 +21,7 @@ rlp::RLPString rlp::RLPString::Create(const buffer_t input) {
 rlp::RLPString rlp::RLPString::Create(const uint64_t input) {
     if (input == 0) {
         // Only positive non-zero integers are allowed.
-        return Create(utils::EmptyByte());
+        return Create(verified::utils::EmptyByte());
     }
     buffer_t bytes_;
     bytes_.push_back(input);
@@ -31,24 +31,24 @@ rlp::RLPString rlp::RLPString::Create(const uint64_t input) {
 rlp::RLPString rlp::RLPString::Create(const char input) {
     if (input == 0) {
         // Only positive non-zero integers are allowed.
-        return Create(utils::EmptyByte());
+        return Create(verified::utils::EmptyByte());
     }
-    buffer_t bytes_ = utils::IntegerToBytes(input);
+    buffer_t bytes_ = verified::utils::IntegerToBytes(input);
     return RLPString(bytes_);
 }
 
 rlp::RLPString rlp::RLPString::Create(const long input) {
     if (input == 0) {
         // Only positive non-zero integers are allowed.
-        return Create(utils::EmptyByte());
+        return Create(verified::utils::EmptyByte());
     }
     return Create((uint64_t)input);
 }
 
 rlp::RLPString rlp::RLPString::Create(const std::string input) {
     if (input.empty()) {
-        return Create(utils::EmptyByte());
+        return Create(verified::utils::EmptyByte());
     }
-    buffer_t bytes_ = utils::StringToBytes(input);
+    buffer_t bytes_ = verified::utils::StringToBytes(input);
     return RLPString(bytes_);
 }
