@@ -36,6 +36,7 @@ build
 obj
 
 # IDE Specific files and directories
+.vs
 .vscode
 
 # Makefile Generated executables
