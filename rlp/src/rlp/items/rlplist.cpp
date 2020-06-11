@@ -28,4 +28,6 @@ rlp::RLPList rlp::RLPList::Create(const buffer_array_t input) {
 
 }
 
-rlp::RLPList rlp::RLPList::Create 
+rlp::RLPList rlp::RLPList::Create(const variant_t& input) {
+    
+}   
