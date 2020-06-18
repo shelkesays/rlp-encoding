@@ -38,6 +38,7 @@ obj
 # IDE Specific files and directories
 .vs
 .vscode
+out
 
 # Makefile Generated executables
 cpp-rlp
