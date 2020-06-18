@@ -1,18 +1,24 @@
 #ifndef UTILS_GENERALISED_H
 #define UTILS_GENERALISED_H
 
-#include "constants.hpp"
+#include <constants/alias.hpp>
+#include <constants/macros.hpp>
+#include <constants/enums.hpp>
 
 template<typename T>
 bool IsNonValue(T input) {
     bool status = false;
     if(input == NULL) {
         status = true;
-    } else if(typeid(input) == typeid(std::vector<unsigned char>)) {
+    } else if (input.which() == BUFFER) {
         status = input.empty();
-    } else if(typeid(input) == typeid(std::string)) {
+    } else if (input.which() == BUFFERARRAY) {
         status = input.empty();
-    } else if((typeid(input) == typeid(long)) || typeid(input) == typeid(uint64_t)) {
+    } else if (input.which() == STRING) {
+        status = input.empty();
+    } else if (input.which() == LONG) {
+        status = (input <= 0);
+    } else if (input.which() == UNINT64) {
         status = (input <= 0);
     } else {
         // Todo check if it is an array / pointer
@@ -22,12 +28,16 @@ bool IsNonValue(T input) {
 }
 
 template<typename T>
-std::vector<T> Slice(const std::vector<T>& v, int start, int end) {
-   auto first_ = v.begin() + start;
-   auto last_ = v.begin() + end + 1;
-   std::vector<T> sliced_vector(first_, last_);
+std::vector<T> Slice(const std::vector<T>& vect, int start, int end) {
+    if(end = -1) {
+       end = vect.size() - 1;
+    }
 
-   return sliced_vector;
+    auto first_ = vect.begin() + start;
+    auto last_ = vect.begin() + end + 1;
+    std::vector<T> sliced_vector_(first_, last_);
+
+    return sliced_vector_;
 }
 
 template<typename T>
@@ -56,12 +66,30 @@ int GetLength(const T& input) {
 
         buffer_t part_byte_ = Slice(input_byte_, 1, l_length_);
 
-        const uint64_t length = SafeParseInt(BytesToString(part_byte_), 16); 
+        std::string part_string_ = BytesToString(part_byte_);
+    
+        const uint64_t length = SafeParseInt(part_string_, 16); 
 
         result = l_length_ + length;
     }
 
     return result;
+}
+
+template<typename Base, typename T>
+inline bool instanceof(const T*) {
+   return std::is_base_of<Base, T>::value;
+}
+
+template <typename T>
+std::string GetBytes(T input) {
+    std::string byte_str_ {"<Bytes"};
+    for(std::size_t i = 0; i < input.size(); i++ ) {
+        uint64_t byte_ = input[i];
+        byte_str_ += " " + IntegerToHex(byte_);
+    }
+
+    return byte_str_ + ">";
 }
 
 #endif

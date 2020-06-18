@@ -1,7 +1,7 @@
-#ifndef RLP_RLP_ENCODE_H
-#define RLP_RLP_ENCODE_H
+#ifndef RLP_ENCODE_H
+#define RLP_ENCODE_H
 
-#include "rlp/items/rlpstring.hpp"
+#include <rlp/items/rlpstring.hpp>
 
 namespace rlp {
     class RLPEncoder {

@@ -1,10 +1,10 @@
 #include "rlpencode.hpp"
 
 
-#include <utils/constants.hpp>
+#include <constants/macros.hpp>
 #include <utils/hex.hpp>
 
-#include "rlp/items/rlpstring.hpp"
+#include <rlp/items/rlpstring.hpp>
 
 std::string rlp::RLPEncoder::GetBytes(const buffer_t input) {
     std::string byte_str_ {"<Bytes"};

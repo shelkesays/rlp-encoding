@@ -1,9 +1,9 @@
 #include "rlpdecode.hpp"
 
-#include <utils/alias.hpp>
+#include <constants/alias.hpp>
 #include <utils/hex.hpp>
 
-#include "rlp/items/rlpstring.hpp"
+#include <rlp/items/rlpstring.hpp>
 
 
 buffer_t rlp::RLPDecoder::Decode(const buffer_t& bytes_input) {
@@ -66,4 +66,12 @@ std::string rlp::RLPDecoder::DecodeString(const std::string& input) {
     const buffer_t decoded_ = Decode(byte_input_);
 
     return utils::BytesToString(decoded_);
+}
+
+
+buffer_array_t DecodeByteList(const buffer_t &input) {
+    // Todo complete this
+    buffer_array_t bytes_array_;
+    bytes_array_[0] = input;
+    return bytes_array_;
 }

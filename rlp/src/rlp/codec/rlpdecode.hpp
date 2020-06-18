@@ -1,9 +1,9 @@
-#ifndef RLP_RLP_DECODE_H
-#define RLP_RLP_DECODE_H
+#ifndef RLP_DECODE_H
+#define RLP_DECODE_H
 
 #include <string>
 
-#include <utils/alias.hpp>
+#include <constants/alias.hpp>
 
 namespace rlp {
     class RLPDecoder {
@@ -12,6 +12,8 @@ namespace rlp {
         public:
             static std::string DecodeByte(const buffer_t& input);
             static std::string DecodeString(const std::string& input);
+
+            static buffer_array_t DecodeByteList(const buffer_t &input);
     };
 }
 

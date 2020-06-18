@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include <utils/alias.hpp>
+#include <constants/alias.hpp>
 
 namespace rlp {
     class RLPList {
