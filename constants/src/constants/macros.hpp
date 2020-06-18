@@ -1,5 +1,5 @@
-#ifndef UTILS_CONSTANTS_H
-#define UTILS_CONSTANTS_H
+#ifndef CONSTANTS_MACROS_H
+#define CONSTANTS_MACROS_H
 
 #define EMPTY_STRING 0x00
 #define NON_VALUE_STRING 0x80
@@ -11,5 +11,7 @@
 
 #define SHORT_LIST 0xbf
 #define LONG_LIST 0xf6
+
+#define DEFAULT_DB_FILE "/tmp/pmt.db"
 
 #endif
