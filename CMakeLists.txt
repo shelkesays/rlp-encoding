@@ -28,8 +28,9 @@ find_package(Boost CONFIG REQUIRED)
 add_subdirectory(constants)
 add_subdirectory(utils)
 add_subdirectory(rlp)
+add_subdirectory(main)
 
-set(SOURCE rlp.cpp)
-add_executable(vnrlp ${SOURCE})
+# set(SOURCE rlp.cpp)
+# add_executable(vnrlp ${SOURCE})
 
-target_link_libraries(vnrlp PRIVATE utils rlp)
+# target_link_libraries(vnrlp PRIVATE utils rlp)
