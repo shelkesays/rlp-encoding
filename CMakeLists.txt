@@ -3,13 +3,14 @@
 # Licensed under the MIT License. See the LICENSE file.
 
 # This is a CMake for verified-rlp
-cmake_minimum_required(VERSION 3.8.0)
+cmake_minimum_required(VERSION 3.16.3)
+
 
 # Include Hunter configurations
 Include("cmake/HunterGate.cmake")
 HunterGate(
-    URL "https://github.com/cpp-pm/hunter/archive/v0.23.257.tar.gz"
-    SHA1 "52203b35dfc2f975f4c22fc89f055476726e4288"
+    URL "https://github.com/cpp-pm/hunter/archive/v0.23.259.tar.gz"
+    SHA1 "59541baf106b91ae4fec32e6c6b0990d04c7f6be"
 )
 
 set(CMAKE_CXX_STANDARD 14)
@@ -30,7 +31,7 @@ add_subdirectory(utils)
 add_subdirectory(rlp)
 add_subdirectory(main)
 
-# set(SOURCE rlp.cpp)
-# add_executable(vnrlp ${SOURCE})
+set(SOURCE rlp.cpp)
+add_executable(vnrlp ${SOURCE})
 
-# target_link_libraries(vnrlp PRIVATE utils rlp)
+target_link_libraries(vnrlp PRIVATE constants utils rlp)
