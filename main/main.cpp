@@ -6,13 +6,12 @@
 #include <rlp/codec/rlpencode.hpp>
 #include <rlp/codec/rlpdecode.hpp>
 
-int main() {
-    std::cout << sizeof(uint_t) << std::endl;
+int main() { 
     std::cout << verified::utils::StringToBytes("Rahul").data() << std::endl;
 
     std::string original_str {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"};
     // std::string original_str {"world"};
-    std::vector<uint64_t> encoded_str = verified::rlp::RLPEncoder::EncodeString(original_str);
+    buffer_t encoded_str = verified::rlp::RLPEncoder::EncodeString(original_str);
     std::cout << verified::rlp::RLPEncoder::GetBytes(encoded_str) << std::endl;
 
     std::string byte_str_ = verified::utils::BytesToString(encoded_str);
@@ -20,7 +19,7 @@ int main() {
     std::cout << "Decoded: " << new_str_ << std::endl;
 
     verified::rlp::RLPString test_ = verified::rlp::RLPString::Create(0L);
-    std::vector<uint64_t> encoded_str_ = verified::rlp::RLPEncoder::EncodeString(test_);
+    buffer_t encoded_str_ = verified::rlp::RLPEncoder::EncodeString(test_);
     std::cout << verified::rlp::RLPEncoder::GetBytes(encoded_str_) << std::endl;
     
     byte_str_ = verified::utils::BytesToString(encoded_str_);
