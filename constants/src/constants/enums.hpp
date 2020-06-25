@@ -2,11 +2,13 @@
 #define CONSTANTS_ENUMS_H
 
 enum ElementType {
-    LONG = 0,
-    UNINT64 = 1,
-    STRING = 2,
-    BUFFER = 3,
-    BUFFERARRAY = 4
+    INT = 0,
+    LONG = 1,
+    UINT = 2,
+    UNINT64 = 3,
+    STRING = 4,
+    BUFFER = 5,
+    BUFFER_ARRAY = 6
 };
 
 enum NodeType {
