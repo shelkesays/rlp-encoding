@@ -109,9 +109,9 @@ namespace verified {
          * 
          * @param input string to be parsed to integer
          * @param base base at which to parse the number, i.e. 2, 3, octal, hex, etc.
-         * @return std::uint64_t parsed integer number
+         * @return uint_t parsed integer number
          */
-        std::uint64_t SafeParseInt(const std::string& input, unsigned int base=10);
+        uint_t SafeParseInt(const std::string& input, unsigned int base=10);
 
         /**
          * @brief Convert Integer to Bytes
