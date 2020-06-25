@@ -103,7 +103,7 @@ buffer_t verified::utils::IntegerToBytes(const uint64_t input) {
     // Only positive integers are allowed
     output_ << input; // std::abs(input);
 
-    std::string converter_str_ = IntegerToHex(std::stoi(output_.str()));
+    std::string converter_str_ = IntegerToHex(std::stoul(output_.str()));
     bytes_.push_back(SafeParseInt(converter_str_, 16));
     return bytes_;
 }
@@ -157,11 +157,13 @@ buffer_t verified::utils::ToBytes(const std::string& input) {
         auto number_ = SafeParseInt(input);
         bytes_ = IntegerToBytes(number_);
     } else {
-        if(IsHexString(input)) {
-            bytes_ = StringToBytes(PadToEven(StripHexPrefix(input)), true);
-        } else {
-            bytes_ = StringToBytes(input);
-        }
+        bool flag_ = IsHexString(input);
+        bytes_ = StringToBytes(input, flag_);
+        // if(IsHexString(input)) {
+        //     bytes_ = StringToBytes(input, true);
+        // } else {
+        //     bytes_ = StringToBytes(input);
+        // }
     }
 
     return bytes_;
