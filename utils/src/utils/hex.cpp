@@ -37,13 +37,9 @@ std::string verified::utils::PadToEven(const std::string& input) {
 }
 
 bool verified::utils::IsHexString(const std::string& input) {
-    bool flag_ = true;
-
     std::string stripped_string_ = StripHexPrefix(input);
 
-    flag_ = std::all_of(stripped_string_.begin(), stripped_string_.end(), ::isxdigit);
-    
-    return flag_;
+    return std::all_of(stripped_string_.begin(), stripped_string_.end(), ::isxdigit);
 }
 
 std::string verified::utils::IntegerToHex(const uint64_t input) {
@@ -85,13 +81,13 @@ std::string verified::utils::HexToString(const std::string& input) {
     std::size_t start_ = IsHexPrefixed(input) ? 2 : 0;
     for(std::size_t i = start_; i < input.length(); i = i+2) {
         hex_str_ = input.substr(i, 2);
-        stream_ += std::stoul(hex_str_, nullptr, 16);
+        stream_ += std::to_string(std::stoul(hex_str_, nullptr, 16));
     }
     
     return stream_;
 }
 
-std::uint64_t verified::utils::SafeParseInt(const std::string& input, unsigned int base) {
+uint_t verified::utils::SafeParseInt(const std::string& input, unsigned int base) {
     if (input.substr(0, 2) == "00") {
         // Todo: Throw exception
         return 0;
@@ -123,7 +119,7 @@ uint64_t verified::utils::BytesToInteger(const buffer_t& input) {
 buffer_t verified::utils::StringToBytes(const std::string& input, const bool ishex) {
     buffer_t bytes_;
     std::string hex_str_ {""};
-    uint64_t hex_char_ {0};
+    uint_t hex_char_ {0};
     
     std::string original_string_ {""};
     
