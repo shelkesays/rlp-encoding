@@ -5,7 +5,6 @@
 # This is a CMake for verified-rlp
 cmake_minimum_required(VERSION 3.16.3)
 
-
 # Include Hunter configurations
 Include("cmake/HunterGate.cmake")
 HunterGate(
@@ -22,8 +21,8 @@ project(verified-rlp VERSION 0.1.0)
 # message(STATUS "Version: ${PROJECT_VERSION}")
 
 # Boost Header only library
-hunter_add_package(Boost)
-find_package(Boost CONFIG REQUIRED)
+hunter_add_package(Boost) # Add `COMPONENTS regex` if required
+find_package(Boost CONFIG REQUIRED) # Add `regex` if regex added to component
 
 # Add project specific subdirectories
 add_subdirectory(constants)
