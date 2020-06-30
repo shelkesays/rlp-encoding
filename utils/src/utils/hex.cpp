@@ -5,6 +5,7 @@
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
+// #include <boost/regex.hpp>
 
 #include <constants/macros.hpp>
 
@@ -13,7 +14,9 @@ buffer_t verified::utils::EmptyByte() {
 }
 
 bool verified::utils::IsNumeric(const std::string& input) {
-    return std::all_of(input.begin(), input.end(), ::isdigit);
+    return std::all_of(input.begin(), input.end(), [](unsigned char c){ return std::isdigit(c); });
+    // boost::regex expr{ "-?[0-9]+([.][0-9]+)?" };
+    // return boost::regex_match(input, expr);
 }
 
 bool verified::utils::IsHexPrefixed(const std::string& input) {
@@ -25,11 +28,7 @@ std::string verified::utils::InsertHexPrefix(const std::string& input) {
 }
 
 std::string verified::utils::StripHexPrefix(const std::string& input) {
-    std::string result_ {input};
-    if(IsHexPrefixed(input)) {
-        result_ = input.substr(2, input.length());
-    }
-    return result_;
+    return IsHexPrefixed(input) ? input.substr(2, input.length()) : input;
 }
 
 std::string verified::utils::PadToEven(const std::string& input) {
@@ -38,8 +37,7 @@ std::string verified::utils::PadToEven(const std::string& input) {
 
 bool verified::utils::IsHexString(const std::string& input) {
     std::string stripped_string_ = StripHexPrefix(input);
-
-    return std::all_of(stripped_string_.begin(), stripped_string_.end(), ::isxdigit);
+    return std::all_of(stripped_string_.begin(), stripped_string_.end(),  [](unsigned char c){ return std::isxdigit(c); });
 }
 
 std::string verified::utils::IntegerToHex(const uint64_t input) {
@@ -121,13 +119,7 @@ buffer_t verified::utils::StringToBytes(const std::string& input, const bool ish
     std::string hex_str_ {""};
     uint_t hex_char_ {0};
     
-    std::string original_string_ {""};
-    
-    if(!ishex || !IsHexString(input)) {
-        original_string_ = StringToHex(input, false);
-    } else {
-        original_string_ = StripHexPrefix(input);
-    }
+    std::string original_string_ = (!ishex || !IsHexString(input)) ? StringToHex(input, false) : StripHexPrefix(input);
 
     for(std::size_t i = 0; i < original_string_.length(); i = i + 2) {
         hex_str_ = original_string_.substr(i, 2);
@@ -149,6 +141,7 @@ std::string verified::utils::BytesToString(const buffer_t& input) {
 
 buffer_t verified::utils::ToBytes(const std::string& input) {
     buffer_t bytes_;
+
     if(input.empty()) {
         // Empty string
         bytes_ = EmptyByte();
@@ -159,11 +152,6 @@ buffer_t verified::utils::ToBytes(const std::string& input) {
     } else {
         bool flag_ = IsHexString(input);
         bytes_ = StringToBytes(input, flag_);
-        // if(IsHexString(input)) {
-        //     bytes_ = StringToBytes(input, true);
-        // } else {
-        //     bytes_ = StringToBytes(input);
-        // }
     }
 
     return bytes_;
