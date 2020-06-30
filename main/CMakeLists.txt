@@ -1,4 +1,4 @@
 set(SOURCE main.cpp)
-add_executable(vnmain ${SOURCE})
+add_executable(verified-network ${SOURCE})
 
-target_link_libraries(vnmain PRIVATE constants utils rlp)
+target_link_libraries(verified-network PRIVATE constants utils rlp)
