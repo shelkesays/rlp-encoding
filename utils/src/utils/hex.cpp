@@ -54,8 +54,50 @@ std::string verified::utils::IntegerToHex(const uint64_t input) {
 
 uint64_t verified::utils::HexToInteger(const std::string& input) {
     std::string hex_str_ = StripHexPrefix(input);
-    uint64_t number = std::stoul(hex_str_, nullptr, 16);
-    return number;
+    uint64_t number_ = std::stoul(hex_str_, nullptr, 16);
+    return number_;
+}
+
+std::string verified::utils::FloatToHex(const double input) {
+    if (input < 0.0) {
+        // Todo: Throw an error
+        return "";
+    }
+
+    // union hex_value
+    // {
+    //     long long i_;
+    //     double d_;
+    // };
+
+    // hex_value value_ {0};
+    // value_.d_ = input;
+
+    // std::ostringstream stream_;
+    // stream_ << std::hex << value_.i_;
+
+    std::ostringstream stream_;
+    stream_ << std::hexfloat << input;
+
+    return PadToEven(stream_.str());
+}
+
+double verified::utils::HexToFloat(const std::string& input) {
+    // union hex_value
+    // {
+    //     long long i_;
+    //     double d_;
+    // };
+
+    // std::string hex_str_ = StripHexPrefix(input);
+    // hex_value value_ {0};
+    // value_.i_ = std::stoll(hex_str_, nullptr, 16);
+    // return value_.d_;
+
+    std::ostringstream stream_;
+    stream_ << std::defaultfloat << input;
+
+    return std::stod(stream_.str());
 }
 
 std::string verified::utils::StringToHex(const std::string& input, bool prefix, bool upper) {
@@ -77,7 +119,7 @@ std::string verified::utils::HexToString(const std::string& input) {
     std::string hex_str_ {""};
 
     std::size_t start_ = IsHexPrefixed(input) ? 2 : 0;
-    for(std::size_t i = start_; i < input.length(); i = i+2) {
+    for(std::size_t i = start_; i < input.length(); i = i + 2) {
         hex_str_ = input.substr(i, 2);
         stream_ += std::to_string(std::stoul(hex_str_, nullptr, 16));
     }
@@ -99,7 +141,7 @@ buffer_t verified::utils::IntegerToBytes(const uint64_t input) {
 
     std::ostringstream output_;
     // Only positive integers are allowed
-    output_ << input; // std::abs(input);
+    output_ << ((input >= 0) ? input : (-1 * input));
 
     std::string converter_str_ = IntegerToHex(std::stoul(output_.str()));
     bytes_.push_back(SafeParseInt(converter_str_, 16));

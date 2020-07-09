@@ -5,6 +5,14 @@
 #include <constants/macros.hpp>
 #include <constants/enums.hpp>
 
+
+template<typename T>
+std::string ToString(const T& input) {
+    std::ostringstream os_;
+    os_ << input;
+    return os_.str();
+}
+
 template<typename T>
 bool IsNonValue(T input) {
     bool status_ = (input == NULL);
