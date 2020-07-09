@@ -64,18 +64,6 @@ std::string verified::utils::FloatToHex(const double input) {
         return "";
     }
 
-    // union hex_value
-    // {
-    //     long long i_;
-    //     double d_;
-    // };
-
-    // hex_value value_ {0};
-    // value_.d_ = input;
-
-    // std::ostringstream stream_;
-    // stream_ << std::hex << value_.i_;
-
     std::ostringstream stream_;
     stream_ << std::hexfloat << input;
 
@@ -83,17 +71,6 @@ std::string verified::utils::FloatToHex(const double input) {
 }
 
 double verified::utils::HexToFloat(const std::string& input) {
-    // union hex_value
-    // {
-    //     long long i_;
-    //     double d_;
-    // };
-
-    // std::string hex_str_ = StripHexPrefix(input);
-    // hex_value value_ {0};
-    // value_.i_ = std::stoll(hex_str_, nullptr, 16);
-    // return value_.d_;
-
     std::ostringstream stream_;
     stream_ << std::defaultfloat << input;
 
