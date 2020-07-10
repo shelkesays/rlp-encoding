@@ -5,26 +5,40 @@
 #include <constants/macros.hpp>
 #include <constants/enums.hpp>
 
+
+template<typename T>
+std::string ToString(const T& input) {
+    std::ostringstream os_;
+    os_ << input;
+    return os_.str();
+}
+
 template<typename T>
 bool IsNonValue(T input) {
-    bool status = false;
-    if(input == NULL) {
-        status = true;
-    } else if (input.which() == BUFFER) {
-        status = input.empty();
-    } else if (input.which() == BUFFERARRAY) {
-        status = input.empty();
-    } else if (input.which() == STRING) {
-        status = input.empty();
-    } else if (input.which() == LONG) {
-        status = (input <= 0);
-    } else if (input.which() == UNINT64) {
-        status = (input <= 0);
-    } else {
-        // Todo check if it is an array / pointer
+    bool status_ = (input == NULL);
+
+    if(!status_) {
+        switch (input.which()) {
+            case ElementType::INT:
+            case ElementType::LONG:
+            case ElementType::UINT:
+            case ElementType::UNINT64:
+                status_ = (input <= 0);
+                break;
+
+            case ElementType::STRING:
+            case ElementType::BUFFER:
+            case ElementType::BUFFER_ARRAY:
+                status_ = input.empty();
+                break;
+        
+            default:
+                // Todo check if it is an array / pointer
+                break;
+        }
     }
     
-    return status;
+    return status_;
 }
 
 template<typename T>

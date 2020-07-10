@@ -5,6 +5,7 @@
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
+// #include <boost/regex.hpp>
 
 #include <constants/macros.hpp>
 
@@ -13,7 +14,9 @@ buffer_t verified::utils::EmptyByte() {
 }
 
 bool verified::utils::IsNumeric(const std::string& input) {
-    return std::all_of(input.begin(), input.end(), ::isdigit);
+    return std::all_of(input.begin(), input.end(), [](unsigned char c){ return std::isdigit(c); });
+    // boost::regex expr{ "-?[0-9]+([.][0-9]+)?" };
+    // return boost::regex_match(input, expr);
 }
 
 bool verified::utils::IsHexPrefixed(const std::string& input) {
@@ -25,11 +28,7 @@ std::string verified::utils::InsertHexPrefix(const std::string& input) {
 }
 
 std::string verified::utils::StripHexPrefix(const std::string& input) {
-    std::string result_ {input};
-    if(IsHexPrefixed(input)) {
-        result_ = input.substr(2, input.length());
-    }
-    return result_;
+    return IsHexPrefixed(input) ? input.substr(2, input.length()) : input;
 }
 
 std::string verified::utils::PadToEven(const std::string& input) {
@@ -37,13 +36,8 @@ std::string verified::utils::PadToEven(const std::string& input) {
 }
 
 bool verified::utils::IsHexString(const std::string& input) {
-    bool flag_ = true;
-
     std::string stripped_string_ = StripHexPrefix(input);
-
-    flag_ = std::all_of(stripped_string_.begin(), stripped_string_.end(), ::isxdigit);
-    
-    return flag_;
+    return std::all_of(stripped_string_.begin(), stripped_string_.end(),  [](unsigned char c){ return std::isxdigit(c); });
 }
 
 std::string verified::utils::IntegerToHex(const uint64_t input) {
@@ -60,8 +54,27 @@ std::string verified::utils::IntegerToHex(const uint64_t input) {
 
 uint64_t verified::utils::HexToInteger(const std::string& input) {
     std::string hex_str_ = StripHexPrefix(input);
-    uint64_t number = std::stoul(hex_str_, nullptr, 16);
-    return number;
+    uint64_t number_ = std::stoul(hex_str_, nullptr, 16);
+    return number_;
+}
+
+std::string verified::utils::FloatToHex(const double input) {
+    if (input < 0.0) {
+        // Todo: Throw an error
+        return "";
+    }
+
+    std::ostringstream stream_;
+    stream_ << std::hexfloat << input;
+
+    return PadToEven(stream_.str());
+}
+
+double verified::utils::HexToFloat(const std::string& input) {
+    std::ostringstream stream_;
+    stream_ << std::defaultfloat << input;
+
+    return std::stod(stream_.str());
 }
 
 std::string verified::utils::StringToHex(const std::string& input, bool prefix, bool upper) {
@@ -83,31 +96,30 @@ std::string verified::utils::HexToString(const std::string& input) {
     std::string hex_str_ {""};
 
     std::size_t start_ = IsHexPrefixed(input) ? 2 : 0;
-    for(std::size_t i = start_; i < input.length(); i = i+2) {
+    for(std::size_t i = start_; i < input.length(); i = i + 2) {
         hex_str_ = input.substr(i, 2);
-        stream_ += std::stoul(hex_str_, nullptr, 16);
+        stream_ += std::to_string(std::stoul(hex_str_, nullptr, 16));
     }
     
     return stream_;
 }
 
-std::uint64_t verified::utils::SafeParseInt(const std::string& input, unsigned int base) {
+uint_t verified::utils::SafeParseInt(const std::string& input, unsigned int base) {
     if (input.substr(0, 2) == "00") {
         // Todo: Throw exception
         return 0;
     }
 
-    return std::stoul(input, 0, base);
+    return (uint_t) std::stoul(input, 0, base);
 }
 
 buffer_t verified::utils::IntegerToBytes(const uint64_t input) {
-    buffer_t bytes_;
-
-    std::ostringstream output_;
     // Only positive integers are allowed
-    output_ << input; // std::abs(input);
+    uint64_t output_ = ((input >= 0) ? input : (-1 * input));
 
-    std::string converter_str_ = IntegerToHex(std::stoi(output_.str()));
+    std::string converter_str_ = IntegerToHex(output_);
+
+    buffer_t bytes_;
     bytes_.push_back(SafeParseInt(converter_str_, 16));
     return bytes_;
 }
@@ -120,18 +132,26 @@ uint64_t verified::utils::BytesToInteger(const buffer_t& input) {
     return result_;
 }
 
+buffer_t verified::utils::FloatToBytes(const double input) {
+    // Only positive numbers are allowed
+    double output_ = ((input >= 0) ? input : (-1 * input));
+
+    std::string converter_str_ = FloatToHex(output_);
+
+    return StringToBytes(converter_str_, true);
+}
+
+double verified::utils::BytesToFloat(const buffer_t& input) {
+    std::string hex_str_ = BytesToString(input);
+    return HexToFloat(hex_str_);
+}
+
 buffer_t verified::utils::StringToBytes(const std::string& input, const bool ishex) {
     buffer_t bytes_;
     std::string hex_str_ {""};
-    uint64_t hex_char_ {0};
+    uint_t hex_char_ {0};
     
-    std::string original_string_ {""};
-    
-    if(!ishex || !IsHexString(input)) {
-        original_string_ = StringToHex(input, false);
-    } else {
-        original_string_ = StripHexPrefix(input);
-    }
+    std::string original_string_ = (!ishex || !IsHexString(input)) ? StringToHex(input, false) : StripHexPrefix(input);
 
     for(std::size_t i = 0; i < original_string_.length(); i = i + 2) {
         hex_str_ = original_string_.substr(i, 2);
@@ -153,6 +173,7 @@ std::string verified::utils::BytesToString(const buffer_t& input) {
 
 buffer_t verified::utils::ToBytes(const std::string& input) {
     buffer_t bytes_;
+
     if(input.empty()) {
         // Empty string
         bytes_ = EmptyByte();
@@ -161,11 +182,9 @@ buffer_t verified::utils::ToBytes(const std::string& input) {
         auto number_ = SafeParseInt(input);
         bytes_ = IntegerToBytes(number_);
     } else {
-        if(IsHexString(input)) {
-            bytes_ = StringToBytes(PadToEven(StripHexPrefix(input)), true);
-        } else {
-            bytes_ = StringToBytes(input);
-        }
+            // If the input is of length 1 and it is between a-f, consider it as non hex
+            bool flag_ = !(input.length() == 1 && IsHexString(input));
+            bytes_ = StringToBytes(input, flag_);
     }
 
     return bytes_;

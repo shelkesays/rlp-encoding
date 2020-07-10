@@ -6,7 +6,7 @@
 #include <rlp/items/rlpstring.hpp>
 
 
-buffer_t rlp::RLPDecoder::Decode(const buffer_t& bytes_input) {
+buffer_t verified::rlp::RLPDecoder::Decode(const buffer_t& bytes_input) {
     buffer_t decoded_;
     const auto first_byte_ = bytes_input[0];
     int length_ {0};
@@ -30,7 +30,7 @@ buffer_t rlp::RLPDecoder::Decode(const buffer_t& bytes_input) {
         auto l_length_ = first_byte_ - LONG_STRING;
         auto length_ = bytes_input.size() - (l_length_ + 1);
 
-        decoded_ = verified::utils::Slice(bytes_input, l_length_ + 1, length_ + 1); // + 1 for first byte length
+        decoded_ = verified::utils::Slice(bytes_input, l_length_ + 1L, length_ + 1L); // + 1 for first byte length
     } else if(first_byte_ <= 0xf7) {
         // a list between 0-55 bytes long
         length_ = first_byte_ - 0xbf;
@@ -46,18 +46,17 @@ buffer_t rlp::RLPDecoder::Decode(const buffer_t& bytes_input) {
 }
 
 
-std::string rlp::RLPDecoder::DecodeByte(const buffer_t& input) {
+std::string verified::rlp::RLPDecoder::DecodeByte(const buffer_t& input) {
     if(input.empty()) {
         return verified::utils::BytesToString(verified::utils::EmptyByte());
     }
 
     const buffer_t decoded_ = Decode(input);
-    
     return verified::utils::BytesToString(decoded_);
 }
 
 
-std::string rlp::RLPDecoder::DecodeString(const std::string& input) {
+std::string verified::rlp::RLPDecoder::DecodeString(const std::string& input) {
     if(input.empty()) {
         return verified::utils::BytesToString(verified::utils::EmptyByte());
     }

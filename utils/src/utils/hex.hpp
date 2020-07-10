@@ -11,14 +11,14 @@ namespace verified {
     namespace utils {
     
         /**
-         * Generates the empty byte
+         * @brief Generates the empty byte
          * 
          * @return buffer_t Empty byte 
          */
         buffer_t EmptyByte();
 
         /**
-         * Check if given string is numeric or not
+         * @brief Check if given string is numeric or not
          * 
          * @param input string to be checked
          * @return true if the string is number
@@ -71,10 +71,10 @@ namespace verified {
         std::string PadToEven(const std::string& input);
 
         /**
-         * @brief Convert integer number of hexadecimal representaion 
+         * @brief Convert integer number to hexadecimal representaion 
          * 
          * @param input number to be converted to hex representation
-         * @return std::string Hex String having representation of the input string
+         * @return std::string Hex String having representation of the input value
          */
         std::string IntegerToHex(const uint64_t input);
 
@@ -85,6 +85,22 @@ namespace verified {
          * @return uint64_t Human readable integer
          */
         uint64_t HexToInteger(const std::string& input);
+
+        /**
+         * @brief Convert Float number to hexadecimal representations
+         * 
+         * @param input number to be converted to hex representation
+         * @return std::string Hex String having representation of the input value
+         */
+        std::string FloatToHex(const double input);
+
+        /**
+         * @brief Convert hexadecimal string to human readable float number
+         * 
+         * @param input hexadecimal string
+         * @return double Human readable float
+         */
+        double HexToFloat(const std::string& input);
 
         /**
          * @brief Convert a string to hexadecimal format
@@ -109,9 +125,9 @@ namespace verified {
          * 
          * @param input string to be parsed to integer
          * @param base base at which to parse the number, i.e. 2, 3, octal, hex, etc.
-         * @return std::uint64_t parsed integer number
+         * @return uint_t parsed integer number
          */
-        std::uint64_t SafeParseInt(const std::string& input, unsigned int base=10);
+        uint_t SafeParseInt(const std::string& input, unsigned int base=10);
 
         /**
          * @brief Convert Integer to Bytes
@@ -128,6 +144,22 @@ namespace verified {
          * @return uint64_t integer number
          */
         uint64_t BytesToInteger(const buffer_t& input);
+
+        /**
+         * @brief Convert Float/Double to bytes
+         * 
+         * @param input Number to be converted to bytes
+         * @return buffer_t bytes representation of the number
+         */
+        buffer_t FloatToBytes(const double input);
+
+        /**
+         * @brief Convert bytes to float
+         * 
+         * @param input bytes representation of the number
+         * @return double decimal (float/double) number
+         */
+        double BytesToFloat(const buffer_t& input);
 
         /**
          * @brief Convert string to bytes 
@@ -147,7 +179,7 @@ namespace verified {
         std::string BytesToString(const buffer_t& input);
 
         /**
-         * Convert String to bytes
+         * @brief Convert String to bytes
          * 
          * @param input String to be converted to bytes
          * @return std::vector<uint64_t> Bytes representation
@@ -155,6 +187,16 @@ namespace verified {
         buffer_t ToBytes(const std::string& input);
 
         // std::vector<uint64_t> ArrayToBytes(const std::string input[]);
+        
+        /**
+         * @brief Convert the input value to string. 
+         * 
+         * @tparam T Type of input (any premitive datatype)
+         * @param input Input to be checked
+         * @return std::string String representation of the input
+         */
+        template<typename T>
+        std::string ToString(const T& input);
 
         /**
          * @brief Check if input is non value or not, i.e. input is 0 / null / nullptr // ''
