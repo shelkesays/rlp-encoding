@@ -1,11 +1,10 @@
 #include "hex.hpp"
 
-#include <string>
+// #include <string>
 #include <iostream>
-#include <sstream>
+// #include <sstream>
 #include <iomanip>
 #include <algorithm>
-// #include <boost/regex.hpp>
 
 #include <constants/macros.hpp>
 
@@ -15,8 +14,6 @@ buffer_t verified::utils::EmptyByte() {
 
 bool verified::utils::IsNumeric(const std::string& input) {
     return std::all_of(input.begin(), input.end(), [](unsigned char c){ return std::isdigit(c); });
-    // boost::regex expr{ "-?[0-9]+([.][0-9]+)?" };
-    // return boost::regex_match(input, expr);
 }
 
 bool verified::utils::IsHexPrefixed(const std::string& input) {

@@ -2,6 +2,7 @@
 #define UTILS_HEX_H
 
 #include <string>
+#include <sstream>
 #include <stdint.h>
 #include <vector>
 
@@ -194,7 +195,7 @@ namespace verified {
          * @tparam T Type of input (any premitive datatype)
          * @param input Input to be checked
          * @return std::string String representation of the input
-         */
+        //  */
         template<typename T>
         std::string ToString(const T& input);
 

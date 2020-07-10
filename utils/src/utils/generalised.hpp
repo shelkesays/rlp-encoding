@@ -8,9 +8,9 @@
 
 template<typename T>
 std::string ToString(const T& input) {
-    std::ostringstream os_;
-    os_ << input;
-    return os_.str();
+    std::ostringstream stream_;
+    stream_ << input;
+    return stream_.str();
 }
 
 template<typename T>
