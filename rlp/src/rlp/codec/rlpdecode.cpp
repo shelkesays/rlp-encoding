@@ -52,7 +52,6 @@ std::string verified::rlp::RLPDecoder::DecodeByte(const buffer_t& input) {
     }
 
     const buffer_t decoded_ = Decode(input);
-    
     return verified::utils::BytesToString(decoded_);
 }
 

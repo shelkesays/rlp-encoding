@@ -110,17 +110,16 @@ uint_t verified::utils::SafeParseInt(const std::string& input, unsigned int base
         return 0;
     }
 
-    return std::stoul(input, 0, base);
+    return (uint_t) std::stoul(input, 0, base);
 }
 
 buffer_t verified::utils::IntegerToBytes(const uint64_t input) {
-    buffer_t bytes_;
-
-    std::ostringstream output_;
     // Only positive integers are allowed
-    output_ << ((input >= 0) ? input : (-1 * input));
+    uint64_t output_ = ((input >= 0) ? input : (-1 * input));
 
-    std::string converter_str_ = IntegerToHex(std::stoul(output_.str()));
+    std::string converter_str_ = IntegerToHex(output_);
+
+    buffer_t bytes_;
     bytes_.push_back(SafeParseInt(converter_str_, 16));
     return bytes_;
 }
@@ -131,6 +130,20 @@ uint64_t verified::utils::BytesToInteger(const buffer_t& input) {
         result_ = result_ * 10 + item_;
     }
     return result_;
+}
+
+buffer_t verified::utils::FloatToBytes(const double input) {
+    // Only positive numbers are allowed
+    double output_ = ((input >= 0) ? input : (-1 * input));
+
+    std::string converter_str_ = FloatToHex(output_);
+
+    return StringToBytes(converter_str_, true);
+}
+
+double verified::utils::BytesToFloat(const buffer_t& input) {
+    std::string hex_str_ = BytesToString(input);
+    return HexToFloat(hex_str_);
 }
 
 buffer_t verified::utils::StringToBytes(const std::string& input, const bool ishex) {
@@ -169,8 +182,9 @@ buffer_t verified::utils::ToBytes(const std::string& input) {
         auto number_ = SafeParseInt(input);
         bytes_ = IntegerToBytes(number_);
     } else {
-        bool flag_ = IsHexString(input);
-        bytes_ = StringToBytes(input, flag_);
+            // If the input is of length 1 and it is between a-f, consider it as non hex
+            bool flag_ = !(input.length() == 1 && IsHexString(input));
+            bytes_ = StringToBytes(input, flag_);
     }
 
     return bytes_;

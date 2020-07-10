@@ -13,7 +13,7 @@ int main() {
     // std::string original_str {"world"};
     std::string original_str {"1✁g"};
     buffer_t encoded_str = verified::rlp::RLPEncoder::EncodeString(original_str);
-    std::cout << verified::rlp::RLPEncoder::GetBytes(encoded_str) << std::endl;
+    std::cout << verified::utils::GetBytes(encoded_str) << std::endl;
 
     std::string byte_str_ = verified::utils::BytesToString(encoded_str);
     std::string new_str_ = verified::rlp::RLPDecoder::DecodeByte(encoded_str);
@@ -21,7 +21,7 @@ int main() {
 
     verified::rlp::RLPString test_ = verified::rlp::RLPString::Create(0L);
     buffer_t encoded_str_ = verified::rlp::RLPEncoder::EncodeString(test_);
-    std::cout << verified::rlp::RLPEncoder::GetBytes(encoded_str_) << std::endl;
+    std::cout << verified::utils::GetBytes(encoded_str_) << std::endl;
     
     // std::cout << encoded_str_.data() << std::endl;
     byte_str_ = verified::utils::BytesToString(encoded_str_);

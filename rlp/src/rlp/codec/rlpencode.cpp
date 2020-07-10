@@ -6,16 +6,6 @@
 
 #include <rlp/items/rlpstring.hpp>
 
-std::string verified::rlp::RLPEncoder::GetBytes(const buffer_t input) {
-    std::string byte_str_ {"<Bytes"};
-    for(std::string::size_type i = 0; i < input.size(); i++ ) {
-        uint64_t byte_ = input[i];
-        byte_str_ += " " + verified::utils::IntegerToHex(byte_);
-    }
-
-    return byte_str_ + ">";
-}
-
 buffer_t verified::rlp::RLPEncoder::EncodeLength(const int len, const int offset) {
     buffer_t encode_length_;
     if (len <= SINGLE_BYTE_STRING) {

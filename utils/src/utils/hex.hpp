@@ -146,6 +146,22 @@ namespace verified {
         uint64_t BytesToInteger(const buffer_t& input);
 
         /**
+         * @brief Convert Float/Double to bytes
+         * 
+         * @param input Number to be converted to bytes
+         * @return buffer_t bytes representation of the number
+         */
+        buffer_t FloatToBytes(const double input);
+
+        /**
+         * @brief Convert bytes to float
+         * 
+         * @param input bytes representation of the number
+         * @return double decimal (float/double) number
+         */
+        double BytesToFloat(const buffer_t& input);
+
+        /**
          * @brief Convert string to bytes 
          * 
          * @param input String to be converted to bytes

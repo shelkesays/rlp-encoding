@@ -11,7 +11,6 @@ namespace verified {
                 static buffer_t Encode(const buffer_t bytes_value);
 
             public:
-                static std::string GetBytes(const buffer_t input);
                 static buffer_t EncodeString(RLPString input);
                 static buffer_t EncodeString(const std::string input);
 
