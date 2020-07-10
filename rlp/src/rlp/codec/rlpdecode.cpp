@@ -45,7 +45,6 @@ buffer_t verified::rlp::RLPDecoder::Decode(const buffer_t& bytes_input) {
     return decoded_;
 }
 
-
 std::string verified::rlp::RLPDecoder::DecodeByte(const buffer_t& input) {
     if(input.empty()) {
         return verified::utils::BytesToString(verified::utils::EmptyByte());
@@ -54,7 +53,6 @@ std::string verified::rlp::RLPDecoder::DecodeByte(const buffer_t& input) {
     const buffer_t decoded_ = Decode(input);
     return verified::utils::BytesToString(decoded_);
 }
-
 
 std::string verified::rlp::RLPDecoder::DecodeString(const std::string& input) {
     if(input.empty()) {
@@ -66,7 +64,6 @@ std::string verified::rlp::RLPDecoder::DecodeString(const std::string& input) {
 
     return verified::utils::BytesToString(decoded_);
 }
-
 
 buffer_array_t DecodeByteList(const buffer_t &input) {
     // Todo complete this
