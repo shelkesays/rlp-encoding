@@ -1,15 +1,16 @@
 #ifndef CONSTANTS_ENUMS_H
 #define CONSTANTS_ENUMS_H
 
-enum ElementType {
-    INT = 0,
-    LONG = 1,
-    UINT = 2,
-    UNINT64 = 3,
-    STRING = 4,
-    BUFFER = 5,
-    BUFFER_ARRAY = 6
-};
+// enum ElementType {
+//     CHAR = 0,
+//     INT = 1,
+//     LONG = 2,
+//     UINT = 3,
+//     UNINT64 = 4,
+//     STRING = 5,
+//     BUFFER = 6,
+//     BUFFER_ARRAY = 7
+// };
 
 enum NodeType {
     BLANK_NODE = 0,
