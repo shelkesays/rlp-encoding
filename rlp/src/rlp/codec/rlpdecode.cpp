@@ -65,9 +65,9 @@ std::string verified::rlp::RLPDecoder::DecodeString(const std::string& input) {
     return verified::utils::BytesToString(decoded_);
 }
 
-buffer_array_t DecodeByteList(const buffer_t &input) {
-    // Todo complete this
-    buffer_array_t bytes_array_;
-    bytes_array_[0] = input;
-    return bytes_array_;
-}
+// buffer_array_t DecodeByteList(const buffer_t &input) {
+//     // Todo complete this
+//     buffer_array_t bytes_array_;
+//     bytes_array_[0] = input;
+//     return bytes_array_;
+// }
