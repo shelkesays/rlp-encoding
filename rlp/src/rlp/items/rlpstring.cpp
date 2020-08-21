@@ -2,6 +2,10 @@
 
 #include <utils/hex.hpp>
 
+verified::rlp::RLPString::RLPString() {
+    // @todo Complete this code later
+}
+
 verified::rlp::RLPString::RLPString(const buffer_t input) {
     _bytes = input;
 }
