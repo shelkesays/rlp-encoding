@@ -15,7 +15,7 @@ std::vector<verified::rlp::RLPString> verified::rlp::RLPList::GetBytes() {
 //     return BytesToString(_bytes);
 // }
 
-verified::rlp::RLPString convertToRLPString(const variant_t& input) {
+verified::rlp::RLPString verified::rlp::RLPList::convertToRLPString(const variant_t& input) {
     verified::rlp::RLPString bytes_;
     switch (input.which()) {
         case ElementType::CHAR: {
@@ -30,6 +30,16 @@ verified::rlp::RLPString convertToRLPString(const variant_t& input) {
             }
         case ElementType::LONG: {
             auto inpt_ = boost::get<long>(input);
+            bytes_ = verified::rlp::RLPString::Create(inpt_);
+            break;
+            }
+        case ElementType::FLOAT: {
+            auto inpt_ = boost::get<float>(input);
+            bytes_ = verified::rlp::RLPString::Create(inpt_);
+            break;
+            }
+        case ElementType::DOUBLE: {
+            auto inpt_ = boost::get<double>(input);
             bytes_ = verified::rlp::RLPString::Create(inpt_);
             break;
             }
@@ -97,6 +107,26 @@ verified::rlp::RLPList verified::rlp::RLPList::Create(const std::vector<int>& in
 }
 
 verified::rlp::RLPList verified::rlp::RLPList::Create(const std::vector<long>& input) {
+    std::vector<verified::rlp::RLPString> bytes_list_;
+    verified::rlp::RLPString item;
+    for (size_t i = 0; i < input.size(); i++) {
+        item = verified::rlp::RLPString::Create(input.at(i));
+        bytes_list_.push_back(item);
+    }
+    return RLPList(bytes_list_);
+}
+
+verified::rlp::RLPList verified::rlp::RLPList::Create(const std::vector<float>& input) {
+    std::vector<verified::rlp::RLPString> bytes_list_;
+    verified::rlp::RLPString item;
+    for (size_t i = 0; i < input.size(); i++) {
+        item = verified::rlp::RLPString::Create(input.at(i));
+        bytes_list_.push_back(item);
+    }
+    return RLPList(bytes_list_);
+}
+
+verified::rlp::RLPList verified::rlp::RLPList::Create(const std::vector<double>& input) {
     std::vector<verified::rlp::RLPString> bytes_list_;
     verified::rlp::RLPString item;
     for (size_t i = 0; i < input.size(); i++) {
