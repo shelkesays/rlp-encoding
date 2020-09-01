@@ -17,9 +17,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 project(verified-rlp VERSION 0.1.0)
 
-# message(STATUS "Name: ${PROJECT_NAME}")
-# message(STATUS "Version: ${PROJECT_VERSION}")
-
 # Boost Header only library
 hunter_add_package(Boost) # Add `COMPONENTS regex` if required
 find_package(Boost CONFIG REQUIRED) # Add `regex` if regex added to component
@@ -28,9 +25,12 @@ find_package(Boost CONFIG REQUIRED) # Add `regex` if regex added to component
 add_subdirectory(constants)
 add_subdirectory(utils)
 add_subdirectory(rlp)
-add_subdirectory(main)
+# add_subdirectory(main)
+
+hunter_add_package(GTest)
+find_package(GTest CONFIG REQUIRED)
 
 set(SOURCE rlp.cpp)
 add_executable(vnrlp ${SOURCE})
 
-target_link_libraries(vnrlp PRIVATE constants utils rlp)
+target_link_libraries(vnrlp PRIVATE constants utils rlp GTest)
