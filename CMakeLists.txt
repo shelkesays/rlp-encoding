@@ -15,9 +15,9 @@ HunterGate(
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-enable_testing()
-
 project(verified-rlp VERSION 0.1.0)
+
+enable_testing()
 
 # Boost Header only library
 hunter_add_package(Boost) # Add `COMPONENTS regex` if required
