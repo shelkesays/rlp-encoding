@@ -3,7 +3,7 @@
 
 #include <constants/alias.hpp>
 #include <constants/macros.hpp>
-#include <constants/enums.hpp>
+#include <constants/elementtype.hpp>
 
 
 template<typename T>
