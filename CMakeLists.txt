@@ -8,12 +8,14 @@ cmake_minimum_required(VERSION 3.16.3)
 # Include Hunter configurations
 Include("cmake/HunterGate.cmake")
 HunterGate(
-    URL "https://github.com/cpp-pm/hunter/archive/v0.23.259.tar.gz"
-    SHA1 "59541baf106b91ae4fec32e6c6b0990d04c7f6be"
+    URL "https://github.com/cpp-pm/hunter/archive/v0.23.269.tar.gz"
+    SHA1 "64024b7b95b4c86d50ae05b926814448c93a70a0"
 )
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+enable_testing()
 
 project(verified-rlp VERSION 0.1.0)
 
@@ -21,16 +23,21 @@ project(verified-rlp VERSION 0.1.0)
 hunter_add_package(Boost) # Add `COMPONENTS regex` if required
 find_package(Boost CONFIG REQUIRED) # Add `regex` if regex added to component
 
+# Google Test library
+hunter_add_package(GTest)
+find_package(GTest CONFIG REQUIRED)
+# Prevent GoogleTest from overriding our compiler/linker options when building with Visual Studio
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
 # Add project specific subdirectories
 add_subdirectory(constants)
 add_subdirectory(utils)
 add_subdirectory(rlp)
-# add_subdirectory(main)
 
-hunter_add_package(GTest)
-find_package(GTest CONFIG REQUIRED)
+# Add tests directory for performing unit testing
+add_subdirectory(tests)
 
-set(SOURCE rlp.cpp)
-add_executable(vnrlp ${SOURCE})
+# set(SOURCE rlp.cpp)
+# add_executable(vnrlp ${SOURCE})
 
-target_link_libraries(vnrlp PRIVATE constants utils rlp GTest)
+# target_link_libraries(vnrlp PRIVATE constants utils rlp)
