@@ -1,7 +1,6 @@
 #include "rlplist.hpp"
 
 #include <utils/hex.hpp>
-#include <constants/elementtype.hpp>
 
 verified::rlp::RLPList::RLPList(const std::vector<verified::rlp::RLPString> input) {
     _bytes = input;
