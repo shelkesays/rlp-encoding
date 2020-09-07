@@ -17,8 +17,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 project(verified-rlp VERSION 0.1.0)
 
-enable_testing()
-
 # Boost Header only library
 hunter_add_package(Boost) # Add `COMPONENTS regex` if required
 find_package(Boost CONFIG REQUIRED) # Add `regex` if regex added to component
@@ -29,13 +27,19 @@ find_package(GTest CONFIG REQUIRED)
 # Prevent GoogleTest from overriding our compiler/linker options when building with Visual Studio
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
+# Add tests directory for performing unit testing
+set(PACKAGE_TEST "Build the tests" ON)
+
 # Add project specific subdirectories
 add_subdirectory(constants)
 add_subdirectory(utils)
 add_subdirectory(rlp)
 
-# Add tests directory for performing unit testing
-add_subdirectory(tests)
+# if(PACKAGE_TEST)
+#     enable_testing()
+#     include(GoogleTest)
+#     add_subdirectory(tests)
+# endif()
 
 # set(SOURCE rlp.cpp)
 # add_executable(vnrlp ${SOURCE})
