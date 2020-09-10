@@ -68,6 +68,24 @@ TEST(InsertHexPrefixTest, NegativeTest) {
   EXPECT_NE(compare_value_, result_);
 }
 
+// StripHexPrefix Positive Test
+TEST(StripHexPrefixTest, PositiveTest) {
+  std::string compare_value_ = "67";
+  std::string value_ = "0x67";
+  std::string result_ = verified::utils::StripHexPrefix(value_);
+
+  EXPECT_EQ(compare_value_, result_);
+}
+
+// StripHexPrefix Negative Test
+TEST(StripHexPrefixTest, NegativeTest) {
+  std::string compare_value_ = "0x65";
+  std::string value_ = "0x65";
+  std::string result_ = verified::utils::StripHexPrefix(value_);
+
+  EXPECT_NE(compare_value_, result_);
+}
+
 // StringToByte Empty Positive Test
 TEST(StringToByteTest, PositiveTest_Empty) {
   buffer_t compare_vect_ {};
