@@ -19,7 +19,8 @@ namespace verified {
                 RLPString(const buffer_t bytes);
 
             public:
-                
+
+                RLPString();                
                 /**
                  * @brief Get the Bytes object
                  * 

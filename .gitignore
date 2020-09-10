@@ -40,6 +40,10 @@ _build
 .vs
 .vscode
 out
+_out
 
 # Makefile Generated executables
 cpp-rlp
+packages
+*.vcxproj*
+old
