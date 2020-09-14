@@ -4,10 +4,9 @@ mark_as_advanced(
     gtest_disable_pthreads gtest_force_shared_crt gtest_hide_internal_symbols
 )
 
-macro(package_add_test TESTNAME ARGN)
+macro(package_add_test TESTNAME ARGV)
     # Create an executable in which test will be stored
-    # set(TEST "${TESTDIR}/${TESTNAME}")
-    add_executable(${TESTNAME} ${ARGN})
+    add_executable(${TESTNAME} ${ARGV})
     # link the Google test infrastructure, mocking library, and a default main fuction to
     # the test executable.  Remove g_test_main if writing your own main function.
     target_link_libraries(${TESTNAME} PUBLIC constants utils gtest gtest_main pthread)
@@ -21,4 +20,25 @@ macro(package_add_test TESTNAME ARGN)
     set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
 endmacro(package_add_test)
 
-package_add_test(utilstest hex.cpp)
+# Add all the unit test cases as one TEST
+set(HEX_TESTS 
+    hex/emptybyte.cpp 
+    hex/isnumeric.cpp
+    hex/ishexprefixed.cpp
+    hex/inserthexprefix.cpp
+    hex/striphexprefix.cpp
+    hex/padtoeven.cpp
+    hex/ishexstring.cpp
+    hex/integertohex.cpp
+    hex/hextointeger.cpp
+    hex/stringtobyte.cpp
+)
+
+set(GENERALISED_TESTS
+    generalised/getbytes.cpp
+)
+
+set(TESTS "${HEX_TESTS};${GENERALISED_TESTS}")
+
+# Generate a test package
+package_add_test(utilstest "${TESTS}")
