@@ -13,7 +13,15 @@ buffer_t verified::utils::EmptyByte() {
 }
 
 bool verified::utils::IsNumeric(const std::string& input) {
-    return std::all_of(input.begin(), input.end(), [](unsigned char c){ return std::isdigit(c); });
+    bool status_ = true;
+    if(!input.empty()) {
+        status_ = std::all_of(input.begin(), input.end(), [](unsigned char c){ return std::isdigit(c); });
+    } else {
+        // it is empty string or not initialized
+        status_  = false;
+    }
+
+    return status_;
 }
 
 bool verified::utils::IsHexPrefixed(const std::string& input) {
@@ -39,8 +47,8 @@ bool verified::utils::IsHexString(const std::string& input) {
 
 std::string verified::utils::IntegerToHex(const uint64_t input) {
     if (input < 0) {
-        // Todo: Throw an error
-        return "";
+        // Todo: Throw an custom exception, rather than the message
+        return "Only positive integers are allowed";
     }
 
     std::ostringstream stream_;
@@ -50,6 +58,10 @@ std::string verified::utils::IntegerToHex(const uint64_t input) {
 }
 
 uint64_t verified::utils::HexToInteger(const std::string& input) {
+    if(input.empty() || !IsHexString(input)) {
+        // Todo: Throw custom exception, rather than the message
+        throw "Not a hex string, please check the value.";
+    }
     std::string hex_str_ = StripHexPrefix(input);
     uint64_t number_ = std::stoul(hex_str_, nullptr, 16);
     return number_;
