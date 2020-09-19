@@ -31,6 +31,9 @@ set(HEX_TESTS
     hex/ishexstring.cpp
     hex/integertohex.cpp
     hex/hextointeger.cpp
+    hex/floattohex.cpp
+    hex/hextofloat.cpp
+    hex/stringtohex.cpp
     hex/stringtobyte.cpp
 )
 
