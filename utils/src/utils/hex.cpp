@@ -13,7 +13,15 @@ buffer_t verified::utils::EmptyByte() {
 }
 
 bool verified::utils::IsNumeric(const std::string& input) {
-    return std::all_of(input.begin(), input.end(), [](unsigned char c){ return std::isdigit(c); });
+    bool status_ = true;
+    if(!input.empty()) {
+        status_ = std::all_of(input.begin(), input.end(), [](unsigned char c){ return std::isdigit(c); });
+    } else {
+        // it is empty string or not initialized
+        status_  = false;
+    }
+
+    return status_;
 }
 
 bool verified::utils::IsHexPrefixed(const std::string& input) {
@@ -39,8 +47,8 @@ bool verified::utils::IsHexString(const std::string& input) {
 
 std::string verified::utils::IntegerToHex(const uint64_t input) {
     if (input < 0) {
-        // Todo: Throw an error
-        return "";
+        // Todo: Throw an custom exception, rather than the message
+        return "Only positive integers are allowed";
     }
 
     std::ostringstream stream_;
@@ -50,6 +58,10 @@ std::string verified::utils::IntegerToHex(const uint64_t input) {
 }
 
 uint64_t verified::utils::HexToInteger(const std::string& input) {
+    if(input.empty() || !IsHexString(input)) {
+        // Todo: Throw custom exception, rather than the message
+        throw "Not a hex string, please check the value.";
+    }
     std::string hex_str_ = StripHexPrefix(input);
     uint64_t number_ = std::stoul(hex_str_, nullptr, 16);
     return number_;
@@ -57,8 +69,8 @@ uint64_t verified::utils::HexToInteger(const std::string& input) {
 
 std::string verified::utils::FloatToHex(const double input) {
     if (input < 0.0) {
-        // Todo: Throw an error
-        return "";
+        // Todo: Throw a custom error
+        throw "Only positive numbers are allowed";
     }
 
     std::ostringstream stream_;
@@ -68,6 +80,10 @@ std::string verified::utils::FloatToHex(const double input) {
 }
 
 double verified::utils::HexToFloat(const std::string& input) {
+    if(input.empty()) {
+        // Todo: Throw custom exception, rather than the message
+        throw "Not a hex string, please check the value.";
+    }
     std::ostringstream stream_;
     stream_ << std::defaultfloat << input;
 
@@ -75,6 +91,11 @@ double verified::utils::HexToFloat(const std::string& input) {
 }
 
 std::string verified::utils::StringToHex(const std::string& input, bool prefix, bool upper) {
+    if(input.empty()) {
+        // Todo: Throw custom exception, rather than the message
+        throw "Empty or uninitialized string is not allowed.";
+    }
+
     std::ostringstream stream_;
 
     unsigned int converter_ {0};
@@ -92,7 +113,7 @@ std::string verified::utils::HexToString(const std::string& input) {
     std::string stream_ {""};
     std::string hex_str_ {""};
 
-    std::size_t start_ = IsHexPrefixed(input) ? 2 : 0;
+    const std::size_t start_ = IsHexPrefixed(input) ? 2 : 0;
     for(std::size_t i = start_; i < input.length(); i = i + 2) {
         hex_str_ = input.substr(i, 2);
         stream_ += std::to_string(std::stoul(hex_str_, nullptr, 16));
@@ -144,6 +165,11 @@ double verified::utils::BytesToFloat(const buffer_t& input) {
 }
 
 buffer_t verified::utils::StringToBytes(const std::string& input, const bool ishex) {
+    if(input.empty()) {
+        // Todo: Throw custom exception, rather than the message
+        throw "Empty or uninitialized string is not allowed.";
+    }
+
     buffer_t bytes_;
     std::string hex_str_ {""};
     uint_t hex_char_ {0};
