@@ -23,3 +23,5 @@ set(TESTS "${HEX_TESTS};${GENERALISED_TESTS}")
 
 # Generate a test package
 package_add_test(utilstest "${TESTS}")
+
+install(TARGETS utilstest DESTINATION test)

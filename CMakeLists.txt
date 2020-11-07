@@ -33,10 +33,10 @@ if(PACKAGE_TEST)
     add_subdirectory(tests)
 endif()
 
-# set(SOURCE rlp.cpp)
-# add_executable(vnrlp ${SOURCE})
+set(SOURCE rlp.cpp)
+add_executable(vnrlp ${SOURCE})
 
-# target_link_libraries(vnrlp PRIVATE constants utils rlp)
+target_link_libraries(vnrlp PRIVATE constants utils rlp)
 
 set(HEADERS
     constants/src/constants/alias.hpp
@@ -50,5 +50,5 @@ set(HEADERS
     rlp/src/rlp/codec/rlpdecode.hpp
 )
 
-install(TARGETS rlp DESTINATION lib)
+install(TARGETS vnrlp DESTINATION lib)
 install(FILES "${HEADERS}" DESTINATION include)
