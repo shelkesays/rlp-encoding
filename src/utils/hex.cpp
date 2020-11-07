@@ -1,12 +1,10 @@
-#include "hex.hpp"
+#include <rlpencoding/utils/hex.hpp>
 
-// #include <string>
 #include <iostream>
-// #include <sstream>
 #include <iomanip>
 #include <algorithm>
 
-#include <constants/macros.hpp>
+#include <rlpencoding/constants/macros.hpp>
 
 buffer_t verified::utils::EmptyByte() {
     return StringToBytes(std::to_string(EMPTY_STRING), true);
@@ -46,10 +44,10 @@ bool verified::utils::IsHexString(const std::string& input) {
 }
 
 std::string verified::utils::IntegerToHex(const uint64_t input) {
-    if (input < 0) {
-        // Todo: Throw an custom exception, rather than the message
-        return "Only positive integers are allowed";
-    }
+    // if (input < 0) {
+    //     // @Todo: Throw an custom exception, rather than the message
+    //     return "Only positive integers are allowed";
+    // }
 
     std::ostringstream stream_;
     stream_ << std::hex << input;
@@ -133,7 +131,9 @@ uint_t verified::utils::SafeParseInt(const std::string& input, unsigned int base
 
 buffer_t verified::utils::IntegerToBytes(const uint64_t input) {
     // Only positive integers are allowed
-    uint64_t output_ = ((input >= 0) ? input : (-1 * input));
+    // uint64_t output_ = ((input >= 0) ? input : (-1 * input));
+    // @Todo: Remove line 136 and enable line 134
+    uint64_t output_ = input;
 
     std::string converter_str_ = IntegerToHex(output_);
 

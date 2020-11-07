@@ -1,7 +1,7 @@
 #ifndef RLP_ENCODE_H
 #define RLP_ENCODE_H
 
-#include <rlp/items/rlpstring.hpp>
+#include <rlpencoding/rlp/items/rlpstring.hpp>
 
 namespace verified {
     namespace rlp {

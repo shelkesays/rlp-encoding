@@ -1,6 +1,6 @@
-#include "rlpstring.hpp" 
+#include <rlpencoding/rlp/items/rlpstring.hpp>
 
-#include <utils/hex.hpp>
+#include <rlpencoding/utils/hex.hpp>
 
 verified::rlp::RLPString::RLPString() {
     // @todo Complete this code later

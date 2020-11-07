@@ -3,9 +3,8 @@
 
 #include <string>
 
-// #include <constants/alias.hpp>
-#include <constants/elementtype.hpp>
-#include <rlp/items/rlpstring.hpp>
+#include <rlpencoding/constants/elementtype.hpp>
+#include <rlpencoding/rlp/items/rlpstring.hpp>
 
 namespace verified {
     namespace rlp {

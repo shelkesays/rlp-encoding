@@ -1,10 +1,9 @@
 #ifndef UTILS_GENERALISED_H
 #define UTILS_GENERALISED_H
 
-#include <constants/alias.hpp>
-#include <constants/macros.hpp>
-#include <constants/elementtype.hpp>
-
+#include <rlpencoding/constants/alias.hpp>
+#include <rlpencoding/constants/macros.hpp>
+#include <rlpencoding/constants/elementtype.hpp>
 
 template<typename T>
 std::string ToString(const T& input) {
@@ -43,7 +42,7 @@ bool IsNonValue(T input) {
 
 template<typename T>
 std::vector<T> Slice(const std::vector<T>& vect, int start, int end) {
-    if(end = -1) {
+    if(end == -1) {
        end = vect.size() - 1;
     }
 

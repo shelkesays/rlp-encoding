@@ -1,10 +1,9 @@
-#include "rlpencode.hpp"
+#include <rlpencoding/rlp/codec/rlpencode.hpp>
 
+#include <rlpencoding/constants/macros.hpp>
+#include <rlpencoding/utils/hex.hpp>
 
-#include <constants/macros.hpp>
-#include <utils/hex.hpp>
-
-#include <rlp/items/rlpstring.hpp>
+#include <rlpencoding/rlp/items/rlpstring.hpp>
 
 buffer_t verified::rlp::RLPEncoder::EncodeLength(const int len, const int offset) {
     buffer_t encode_length_;
