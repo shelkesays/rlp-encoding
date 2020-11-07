@@ -47,3 +47,4 @@ cpp-rlp
 packages
 *.vcxproj*
 old
+_install
