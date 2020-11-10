@@ -1,17 +1,32 @@
-BUILD_DIR="_build"
-BIN_DIR="bin"
-LIBS_DIR="libs"
+#!/usr/bin/env sh
+
+BASEDIR=$(dirname "$0")
+
+# Build directory
+BUILDDIR="$BASEDIR/build"
+# Bin directory
+BINDIR="$BASEDIR/bin"
+# Libs directory
+LIBSDIR="$BASEDIR/libs"
 
 # Delete existing build, bin and libs directory
-rm -rf "$BUILD_DIR"
-rm -rf "$BIN_DIR"
-rm -rf "$LIBS_DIR"
+if [ -d "$LIBSDIR" ]; then
+    rm -rf "$BUILDDIR"
+fi
+
+if [ -d "$LIBSDIR" ]; then
+    rm -rf "$BINDIR"
+fi
+
+if [ -d "$LIBSDIR" ]; then
+    rm -rf "$LIBSDIR"
+fi
 
 # Create a new build directory
-mkdir "$BUILD_DIR"
+mkdir "$BUILDDIR"
 
 # Create a build
-cmake -H. -B"$BUILD_DIR"
+cmake -H. -B"$BUILDDIR"
 
 # Run build
-cmake --build "$BUILD_DIR"
+cmake --build "$BUILDDIR"
