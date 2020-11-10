@@ -92,28 +92,3 @@ if(PACKAGE_TEST)
 
     add_subdirectory(tests)
 endif()
-
-# # Add project specific subdirectories
-# add_subdirectory(constants)
-# add_subdirectory(utils)
-# add_subdirectory(rlp)
-
-# set(SOURCE rlp.cpp)
-# add_executable(vnrlp ${SOURCE})
-
-# target_link_libraries(vnrlp PRIVATE constants utils rlp)
-
-# set(HEADERS
-#     constants/src/constants/alias.hpp
-#     constants/src/constants/elementtype.hpp
-#     constants/src/constants/macros.hpp
-#     utils/src/utils/generalised.hpp
-#     utils/src/utils/hex.hpp
-#     rlp/src/rlp/items/rlpstring.hpp
-#     rlp/src/rlp/items/rlplist.hpp
-#     rlp/src/rlp/codec/rlpencode.hpp
-#     rlp/src/rlp/codec/rlpdecode.hpp
-# )
-
-# install(TARGETS vnrlp DESTINATION lib)
-# install(FILES "${HEADERS}" DESTINATION include)
