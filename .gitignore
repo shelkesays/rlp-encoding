@@ -48,3 +48,5 @@ packages
 *.vcxproj*
 old
 _install
+bin
+libs
