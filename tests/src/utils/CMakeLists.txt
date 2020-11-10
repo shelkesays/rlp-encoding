@@ -24,4 +24,9 @@ set(TESTS "${HEX_TESTS};${GENERALISED_TESTS}")
 # Generate a test package
 package_add_test(utilstest "${TESTS}")
 
-install(TARGETS utilstest DESTINATION test)
+set_target_properties(utilstest
+    PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/tests"
+)

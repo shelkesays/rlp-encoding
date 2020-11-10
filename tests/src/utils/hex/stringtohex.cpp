@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <utils/hex.hpp>
+#include <rlpencoding/utils/hex.hpp>
 
 // StringToHex Empty Positive Test
 TEST(HexTest, StringToHex_with_empty_string) {

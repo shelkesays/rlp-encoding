@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <utils/hex.hpp>
+#include <rlpencoding/utils/hex.hpp>
 
 // IsHexPrefixed Positive Test
 TEST(HexTest, IsHexPrefixed_with_0x1234) {

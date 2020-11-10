@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <utils/hex.hpp>
+#include <rlpencoding/utils/hex.hpp>
 
 // InsertHexPrefix Positive Test
 TEST(HexTest, InsertHexPrefix_with_0x67) {

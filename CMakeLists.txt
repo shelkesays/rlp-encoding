@@ -37,11 +37,10 @@ set(SOURCES
 )
 add_library(rlpencoding "${SOURCES}")
 
-#Add an alias so that library can be used inside the build tree, e.g. when testing
+# Add an alias so that library can be used inside the build tree, e.g. when testing
 add_library(RLPEncoding::rlpencoding ALIAS rlpencoding)
 
 # Set target properties
-#Set target properties
 target_include_directories(rlpencoding
     PUBLIC
         $<INSTALL_INTERFACE:include>
@@ -71,8 +70,26 @@ target_link_libraries(rlpencoding
 # Exporting from the build tree
 
 ######################################################################################
+# Move to bin directory
+set_target_properties(rlpencoding
+    PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/libs"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/libs"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
+)
+
+######################################################################################
 # Add tests
-if(NOT PACKAGE_TEST)
+if(PACKAGE_TEST)
+    # Google Test library
+    hunter_add_package(GTest)
+    find_package(GTest CONFIG REQUIRED)
+    # Prevent GoogleTest from overriding our compiler/linker options when building with Visual Studio
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+    enable_testing()
+    include(GoogleTest)
+
     add_subdirectory(tests)
 endif()
 

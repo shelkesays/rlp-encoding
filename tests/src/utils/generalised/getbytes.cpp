@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <utils/hex.hpp>
+#include <rlpencoding/utils/hex.hpp>
 
 // GetByte Empty Positive Test
 TEST(GeneralisedHexTest, GetBytes_with_empty_byte) {

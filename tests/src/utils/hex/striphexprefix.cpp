@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <utils/hex.hpp>
+#include <rlpencoding/utils/hex.hpp>
 
 // StripHexPrefix Positive Test
 TEST(HexTest, StripHexPrefix_with_67) {

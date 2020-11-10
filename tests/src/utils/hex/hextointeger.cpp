@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include <utils/hex.hpp>
+#include <rlpencoding/utils/hex.hpp>
 
 // HexToInteger Positive Test
 TEST(HexTest, HexToInteger_with_empty_string) {

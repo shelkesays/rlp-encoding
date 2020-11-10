@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
-#include <utils/hex.hpp>
+// #include <utils/hex.hpp>
+#include <rlpencoding/utils/hex.hpp>
 
 // IsNumeric Positive Test
 TEST(HexTest, IsNumeric_with_1234_string) {

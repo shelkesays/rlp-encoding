@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <utils/hex.hpp>
+#include <rlpencoding/utils/hex.hpp>
 
 // IsHexString Positive Test
 TEST(HexTest, IsHexString_with_empty_string) {

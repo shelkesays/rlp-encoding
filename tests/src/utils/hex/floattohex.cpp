@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <utils/hex.hpp>
+#include <rlpencoding/utils/hex.hpp>
 
 // FloatToHe Negative test
 TEST(HexTest, FloatToHex_with_zero) {
