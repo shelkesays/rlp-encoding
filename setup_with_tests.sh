@@ -46,7 +46,7 @@ BINDIR="$BASEDIR/$BIN"
 LIBSDIR="$BASEDIR/$LIBS"
 
 # Test directory
-TESTDIR="${BINDIR}/$TESTS"
+TESTDIR="$BINDIR/$TESTS"
 
 # Delete existing build, bin and libs directory
 if [ -d "$BUILDDIR" ]; then
@@ -69,3 +69,14 @@ cmake -H. -B"$BUILDDIR"
 
 # Run build
 cmake --build "$BUILDDIR"
+
+# Run unit test cases.
+echo "[Running]: Unit Test Cases"
+if [ -d "$TESTDIR" ]; then
+    echo "[SUCCESS]: Utils Test Case Execution starts: "
+    "$TESTDIR/utilstest"
+    echo "[SUCCESS]: Utils Test Case Execution ends: "
+else
+    echo "[ERROR]: Tests directory is not generated."
+fi
+echo "Unit Test Case execution complete."
