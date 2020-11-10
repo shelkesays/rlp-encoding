@@ -46,7 +46,7 @@ BINDIR="$BASEDIR/$BIN"
 LIBSDIR="$BASEDIR/$LIBS"
 
 # Test directory
-TESTDIR="${BINDIR}/$TESTS"
+TESTDIR="$BINDIR/$TESTS"
 
 # Delete existing build, bin and libs directory
 if [ -d "$BUILDDIR" ]; then
