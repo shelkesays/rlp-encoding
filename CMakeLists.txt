@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See the LICENSE file.
 
 # This is a CMake for verified-rlp
-cmake_minimum_required(VERSION 3.16.3)
+cmake_minimum_required(VERSION 3.13...3.16 FATAL_ERROR)
 
 # Include Hunter configurations
 Include("cmake/HunterGate.cmake")
@@ -15,40 +15,105 @@ HunterGate(
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-project(verified-rlp VERSION 0.1.0)
+# Add tests directory for performing unit testing
+set(PACKAGE_TEST "Build the tests" ON)
 
+project(librlpencoding VERSION 0.1.0)
+
+######################################################################################
+# Dependencies
 # Boost Header only library
 hunter_add_package(Boost) # Add `COMPONENTS regex` if required
 find_package(Boost CONFIG REQUIRED) # Add `regex` if regex added to component
 
-# Add tests directory for performing unit testing
-set(PACKAGE_TEST "Build the tests" ON)
+######################################################################################
+# Create Target and set properties
+set(SOURCES
+    src/utils/hex.cpp
+    src/rlp/items/rlpstring.cpp
+    src/rlp/items/rlplist.cpp
+    src/rlp/codec/rlpencode.cpp
+    src/rlp/codec/rlpdecode.cpp
+)
+add_library(rlpencoding "${SOURCES}")
 
-# Add project specific subdirectories
-add_subdirectory(constants)
-add_subdirectory(utils)
-add_subdirectory(rlp)
+# Add an alias so that library can be used inside the build tree, e.g. when testing
+add_library(RLPEncoding::rlpencoding ALIAS rlpencoding)
 
+# Set target properties
+target_include_directories(rlpencoding
+    PUBLIC
+        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+target_compile_features(rlpencoding PRIVATE cxx_auto_type)
+target_compile_options(rlpencoding PRIVATE
+    $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
+    -Wall -Wextra -Wpedantic>)
+
+target_link_libraries(rlpencoding
+    PUBLIC
+        Boost::boost
+    # PRIVATE
+    #     Boost::regex
+    # INTERFACE
+    #     Boost::boost
+)
+
+######################################################################################
+# Installation instructions
+
+######################################################################################
+# Exporting from the build tree
+
+######################################################################################
+# Move to bin directory
+set_target_properties(rlpencoding
+    PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/libs"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/libs"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
+)
+
+######################################################################################
+# Add tests
 if(PACKAGE_TEST)
+    # Google Test library
+    hunter_add_package(GTest)
+    find_package(GTest CONFIG REQUIRED)
+    # Prevent GoogleTest from overriding our compiler/linker options when building with Visual Studio
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+    enable_testing()
+    include(GoogleTest)
+
     add_subdirectory(tests)
 endif()
+
+# # Add project specific subdirectories
+# add_subdirectory(constants)
+# add_subdirectory(utils)
+# add_subdirectory(rlp)
 
 # set(SOURCE rlp.cpp)
 # add_executable(vnrlp ${SOURCE})
 
 # target_link_libraries(vnrlp PRIVATE constants utils rlp)
 
-set(HEADERS
-    constants/src/constants/alias.hpp
-    constants/src/constants/elementtype.hpp
-    constants/src/constants/macros.hpp
-    utils/src/utils/generalised.hpp
-    utils/src/utils/hex.hpp
-    rlp/src/rlp/items/rlpstring.hpp
-    rlp/src/rlp/items/rlplist.hpp
-    rlp/src/rlp/codec/rlpencode.hpp
-    rlp/src/rlp/codec/rlpdecode.hpp
-)
+# set(HEADERS
+#     constants/src/constants/alias.hpp
+#     constants/src/constants/elementtype.hpp
+#     constants/src/constants/macros.hpp
+#     utils/src/utils/generalised.hpp
+#     utils/src/utils/hex.hpp
+#     rlp/src/rlp/items/rlpstring.hpp
+#     rlp/src/rlp/items/rlplist.hpp
+#     rlp/src/rlp/codec/rlpencode.hpp
+#     rlp/src/rlp/codec/rlpdecode.hpp
+# )
 
-install(TARGETS rlp DESTINATION lib)
-install(FILES "${HEADERS}" DESTINATION include)
+# install(TARGETS vnrlp DESTINATION lib)
+# install(FILES "${HEADERS}" DESTINATION include)

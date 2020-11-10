@@ -7,9 +7,10 @@ mark_as_advanced(
 macro(package_add_test TESTNAME ARGN)
     # Create an executable in which test will be stored
     add_executable(${TESTNAME} ${ARGN})
+    target_compile_features(${TESTNAME} PRIVATE cxx_auto_type)
     # link the Google test infrastructure, mocking library, and a default main fuction to
     # the test executable.  Remove g_test_main if writing your own main function.
-    target_link_libraries(${TESTNAME} PUBLIC constants utils GTest::gtest GTest::gtest_main pthread)
+    target_link_libraries(${TESTNAME} PUBLIC GTest::gtest GTest::gtest_main pthread RLPEncoding::rlpencoding)
     # gtest_discover_tests replaces gtest_add_tests,
     # see https://cmake.org/cmake/help/v3.10/module/GoogleTest.html for more options to pass to it
     gtest_discover_tests(${TESTNAME}
@@ -21,13 +22,5 @@ macro(package_add_test TESTNAME ARGN)
 endmacro(package_add_test)
 
 # Add test directories
-# Google Test library
-hunter_add_package(GTest)
-find_package(GTest CONFIG REQUIRED)
-# Prevent GoogleTest from overriding our compiler/linker options when building with Visual Studio
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
-enable_testing()
-include(GoogleTest)
-
-add_subdirectory(utils)
+add_subdirectory(src/utils)
