@@ -3,15 +3,23 @@ BIN_DIR="bin"
 LIBS_DIR="libs"
 
 # Delete existing build, bin and libs directory
-rm -rf "$BUILD_DIR"
-rm -rf "$BIN_DIR"
-rm -rf "$LIBS_DIR"
+if [ -d "$LIBS_DIR" ]; then
+    rm -rf "$BUILD_DIR"
+fi
+
+if [ -d "$LIBS_DIR" ]; then
+    rm -rf "$BIN_DIR"
+fi
+
+if [ -d "$LIBS_DIR" ]; then
+    rm -rf "$LIBS_DIR"
+fi
 
 # Create a new build directory
 mkdir "$BUILD_DIR"
 
 # Create a build
-cmake -H. -B"$BUILD_DIR"  # -DCMAKE_INSTALL_PREFIX=_install
+cmake -H. -B"$BUILD_DIR"
 
 # Run build
 cmake --build "$BUILD_DIR"
