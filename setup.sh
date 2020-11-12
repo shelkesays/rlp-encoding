@@ -27,7 +27,10 @@ else
   SOURCE="$BASEDIR"
 fi
 
-echo "[RUNNING]: Script under \`$PROFILE_SHELL\` environment"
+echo "[Running]: Script under \`$PROFILE_SHELL\` environment"
+
+# Execute the config configuration
+"$SOURCE" "$BASEDIR/scripts/linux/config.sh"
 
 # Execute the build script
 "$SOURCE" "$BASEDIR/scripts/linux/build.sh"

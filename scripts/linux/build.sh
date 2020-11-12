@@ -1,36 +1,24 @@
 #!/usr/bin/env bash
 
-# Read the confifuration file
-"$SOURCE" "$BASEDIR/config.cfg"
-
-# Remove trailing \r and \n
-BUILD=$(echo "$BUILD" | tr -d '\r' | tr -d '\n')
-BIN=$(echo "$BIN" | tr -d '\r' | tr -d '\n')
-LIBS=$(echo "$LIBS" | tr -d '\r' | tr -d '\n')
-TESTS=$(echo "$TESTS" | tr -d '\r' | tr -d '\n')
-
-# Build directory
-BUILDDIR="$BASEDIR/$BUILD"
-# Bin directory
-BINDIR="$BASEDIR/$BIN"
-# Libs directory
-LIBSDIR="$BASEDIR/$LIBS"
-
-# Test directory
-TESTDIR="${BINDIR}/$TESTS"
+echo "[Info]: Removing old build files."
 
 # Delete existing build, bin and libs directory
 if [ -d "$BUILDDIR" ]; then
+    echo "[Remove]: $BUILDDIR"
     rm -rf "$BUILDDIR"
 fi
 
 if [ -d "$BINDIR" ]; then
+    echo "[Remove]: $BINDIR"
     rm -rf "$BINDIR"
 fi
 
 if [ -d "$LIBSDIR" ]; then
+    echo "[Remove]: $LIBSDIR"
     rm -rf "$LIBSDIR"
 fi
+
+echo "[Info]: Build process started."
 
 # Create a new build directory
 mkdir "$BUILDDIR"
@@ -40,3 +28,5 @@ cmake -H. -B"$BUILDDIR"
 
 # Run build
 cmake --build "$BUILDDIR"
+
+echo "[Info]: Build process completed."
