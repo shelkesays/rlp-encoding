@@ -18,7 +18,7 @@ if [ -d "$LIBSDIR" ]; then
     rm -rf "$LIBSDIR"
 fi
 
-echo "[Info]: Build process started."
+echo "[Info]: Build process started"
 
 # Create a new build directory
 mkdir "$BUILDDIR"
