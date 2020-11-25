@@ -14,6 +14,7 @@ set(HEX_TESTS
     hex/stringtohex.cpp
     hex/hextostring.cpp
     hex/stringtobyte.cpp
+    hex/safeparseint.cpp
 )
 
 set(GENERALISED_TESTS
