@@ -73,8 +73,8 @@ target_link_libraries(rlpencoding
 # Move to bin directory
 set_target_properties(rlpencoding
     PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/libs"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/libs"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib"
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
 )
 
@@ -92,3 +92,7 @@ if(PACKAGE_TEST)
 
     add_subdirectory(tests)
 endif()
+
+######################################################################################
+# Example
+add_subdirectory(examples)
