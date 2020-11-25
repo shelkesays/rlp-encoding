@@ -108,13 +108,15 @@ std::string verified::utils::StringToHex(const std::string& input, bool prefix, 
 }
 
 std::string verified::utils::HexToString(const std::string& input) {
-    std::string stream_ {""};
+    std::string stream_;
     std::string hex_str_ {""};
+    uint_t hex_char_ {0};
 
-    const std::size_t start_ = IsHexPrefixed(input) ? 2 : 0;
-    for(std::size_t i = start_; i < input.length(); i = i + 2) {
-        hex_str_ = input.substr(i, 2);
-        stream_ += std::to_string(std::stoul(hex_str_, nullptr, 16));
+    const std::string original_string_ = IsHexPrefixed(input) ? StripHexPrefix(input) : input;
+    for(std::size_t i = 0; i < original_string_.length(); i = i + 2) {
+        hex_str_ = original_string_.substr(i, 2);
+        hex_char_ = std::stoul(hex_str_, nullptr, 16);
+        stream_.push_back(hex_char_);
     }
     
     return stream_;

@@ -28,6 +28,9 @@ CALL %BASEDIR%/scripts/windows/config.bat
 :: Execute the build script
 CALL %BASEDIR%/scripts/windows/build.bat
 
+:: Execute the tests script
+CALL %BASEDIR%/scripts/windows/tests.bat
+
 endlocal
 
 GOTO :EOF

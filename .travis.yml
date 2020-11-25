@@ -23,7 +23,7 @@ install:
       - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
       - mkdir ${DEPS_DIR} && cd ${DEPS_DIR}
       # we use wget to fetch the cmake binaries
-      - travis_retry wget --no-check-certificate https://cmake.org/files/LatestRelease/cmake-3.18.0-Linux-x86_64.tar.gz
+      - travis_retry wget --no-check-certificate https://cmake.org/files/LatestRelease/cmake-3.19.0-Linux-x86_64.tar.gz
       # this is optional, but useful:
       # do a quick md5 check to ensure that the archive we downloaded did not get compromised
       # - echo "4d9a9d3351161073a67e49366d701b6fa4b0343781982dc5eef08a02a750d403 *cmake-3.3.2-Linux-x86_64.tar.gz" > cmake_md5.txt

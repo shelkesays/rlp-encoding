@@ -1,45 +1,24 @@
 :: Get Windows shell environment details, i.e., powershell / Windows Terminale / pwsh
-echo [INFO]: Build Started
 
-CALL :GETPARENT PARENT
-
-:: Check which shell environment is executing the script and 
-:: depending on the shell environment change source command
-IF /I "%PARENT%" == "powershell" (
-    SET SOURCE=source
-) ELSE IF /I "%PARENT%" == "pwsh" (
-    SET SOURCE=source
-) ELSE IF /I "%PARENT%" == "WindowsTerminal" (
-    SET SOURCE=.
-)
-
-echo [RUNNING]: Script under %PARENT% environment
-
-:: Read the confifuration file
-FOR /f "eol=- delims=" %%a in (config.cfg) do SET "%%a"
-
-:: Build directory
-SET BUILDDIR=%BASEDIR%%BUILD%
-:: Bin directory
-SET BINDIR=%BASEDIR%%BIN%
-:: Libs directory
-SET LIBSDIR=%BASEDIR%%LIBS%
-
-:: Test directory
-SET TESTDIR=%BINDIR%\%TESTS%
+echo [Info]: Removing old build files
 
 :: Delete existing build, bin and libs directory
 IF exist %BUILDDIR% (
+    echo [Remove]: %BUILDDIR%
     RMDIR /S /Q %BUILDDIR%
 )
 
 IF exist %BINDIR% (
+    echo [Remove]: %BINDIR%
     RMDIR /S /Q %BINDIR%
 )
 
 IF exist %LIBSDIR% (
+    echo [Remove]: %LIBSDIR%
     RMDIR /S /Q %LIBSDIR%
 )
+
+echo [Info]: Build process started
 
 :: Create a new build directory
 mkdir %BUILDDIR%
@@ -51,14 +30,4 @@ cmake -H. -B%BUILDDIR%
 cmake --build %BUILDDIR%
 
 :: Build finished
-echo [INFO]: Build Finished
-
-GOTO :EOF
-
-:: Function to get the environment
-:GETPARENT
-    SET "PSCMD=$ppid=$pid;while($i++ -lt 3 -and ($ppid=(Get-CimInstance Win32_Process -Filter ('ProcessID='+$ppid)).ParentProcessId)) {}; (Get-Process -EA Ignore -ID $ppid).Name"
-
-    for /f "tokens=*" %%i in ('powershell -noprofile -command "%PSCMD%"') do SET %1=%%i
-
-GOTO :EOF
+echo [Info]: Build process completed

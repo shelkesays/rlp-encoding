@@ -1,10 +1,10 @@
 #include <iostream>
 
-#include <constants/alias.hpp>
-#include <utils/hex.hpp>
-#include <rlp/items/rlpstring.hpp>
-#include <rlp/codec/rlpencode.hpp>
-#include <rlp/codec/rlpdecode.hpp>
+#include <rlpencoding/constants/alias.hpp>
+#include <rlpencoding/utils/hex.hpp>
+#include <rlpencoding/rlp/items/rlpstring.hpp>
+#include <rlpencoding/rlp/codec/rlpencode.hpp>
+#include <rlpencoding/rlp/codec/rlpdecode.hpp>
 
 
 int main() {
@@ -100,6 +100,14 @@ int main() {
     // std::cout << "Convert: " << verified::utils::BytesToString(encoded_str_) << std::endl;
     // std::cout << "Decoded byte: " << verified::rlp::RLPDecoder::DecodeByte(encoded_str_) << std::endl;
     // std::cout << "Decoded string: " << verified::rlp::RLPDecoder::DecodeString(byte_str_) << std::endl;
+
+    std::cout << std::endl;
+    std::cout << "Hex To String with uninitiazed value" << std::endl;
+
+    std::string value_ {"Hi"};
+    std::string result_ = verified::utils::StringToHex(value_); 
+    std::cout << "Hex: " << result_ << std::endl;
+    std::cout << "String: " << verified::utils::HexToString(result_) << std::endl;
 
     return 0;
 }
