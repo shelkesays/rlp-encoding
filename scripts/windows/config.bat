@@ -1,5 +1,5 @@
 :: Read the confifuration file
-SET CONFIG=%BASEDIR%config.cfg
+SET CONFIG=%BASEDIR%config\config.cfg
 
 echo [Reading]: Configuration from %CONFIG%
 

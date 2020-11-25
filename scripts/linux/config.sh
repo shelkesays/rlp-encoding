@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-CONFIG="$BASEDIR/config.cfg"
+CONFIG="$BASEDIR/config/config.cfg"
 
 echo "[Reading]: Configuration from \`$CONFIG\`"
 
