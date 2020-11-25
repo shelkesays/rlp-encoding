@@ -12,6 +12,7 @@ set(HEX_TESTS
     hex/floattohex.cpp
     hex/hextofloat.cpp
     hex/stringtohex.cpp
+    hex/hextostring.cpp
     hex/stringtobyte.cpp
 )
 
